@@ -1,1 +1,712 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Gini AI Features & Vision — Full capabilities overview and future roadmap.">
+<title>Gini AI — Features & Vision</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══ THEMES (same as index) ═══ */
+:root,[data-theme="dark"]{
+  --bg:#08080f;--bg2:#0d0d18;--bg3:#111120;--bg4:#161628;
+  --text:#eeeeff;--text2:#8888aa;--text3:#44445a;
+  --accent:#7c6aff;--accent2:#a594ff;--accent-glow:rgba(124,106,255,0.28);
+  --glass:rgba(255,255,255,0.035);--glass2:rgba(255,255,255,0.065);
+  --glass-border:rgba(255,255,255,0.08);--glass-border2:rgba(255,255,255,0.13);
+  --header-bg:rgba(8,8,15,0.82);--chat-dot:#00e87a;
+  --orb1:rgba(124,106,255,0.14);--orb2:rgba(80,190,255,0.08);
+  --btn-text:#fff;--tag-bg:rgba(124,106,255,0.1);--tag-text:#a594ff;
+  --input-bg:rgba(255,255,255,0.05);
+}
+[data-theme="light"]{
+  --bg:#f5f5fa;--bg2:#eeeef6;--bg3:#e5e5f0;--bg4:#dddded;
+  --text:#0a0a1a;--text2:#44445a;--text3:#8888a0;
+  --accent:#5b45e8;--accent2:#7c6aff;--accent-glow:rgba(91,69,232,0.18);
+  --glass:rgba(0,0,0,0.025);--glass2:rgba(0,0,0,0.045);
+  --glass-border:rgba(0,0,0,0.07);--glass-border2:rgba(0,0,0,0.11);
+  --header-bg:rgba(245,245,250,0.88);--chat-dot:#00bb55;
+  --orb1:rgba(91,69,232,0.08);--orb2:rgba(50,140,255,0.06);
+  --btn-text:#fff;--tag-bg:rgba(91,69,232,0.07);--tag-text:#5b45e8;
+  --input-bg:rgba(0,0,0,0.035);
+}
+[data-theme="midnight"]{
+  --bg:#040c18;--bg2:#061220;--bg3:#081828;--bg4:#0b1f32;
+  --text:#cce8ff;--text2:#5888b0;--text3:#244060;
+  --accent:#38bdf8;--accent2:#7dd3fc;--accent-glow:rgba(56,189,248,0.25);
+  --glass:rgba(56,189,248,0.035);--glass2:rgba(56,189,248,0.065);
+  --glass-border:rgba(56,189,248,0.1);--glass-border2:rgba(56,189,248,0.18);
+  --header-bg:rgba(4,12,24,0.88);--chat-dot:#38bdf8;
+  --orb1:rgba(56,189,248,0.12);--orb2:rgba(100,195,255,0.07);
+  --btn-text:#040c18;--tag-bg:rgba(56,189,248,0.08);--tag-text:#38bdf8;
+  --input-bg:rgba(56,189,248,0.04);
+}
+[data-theme="rose"]{
+  --bg:#0e040a;--bg2:#160710;--bg3:#1e0b16;--bg4:#260e1c;
+  --text:#ffd8ec;--text2:#b05878;--text3:#682848;
+  --accent:#e85888;--accent2:#ff88b8;--accent-glow:rgba(232,88,136,0.25);
+  --glass:rgba(232,88,136,0.035);--glass2:rgba(232,88,136,0.065);
+  --glass-border:rgba(232,88,136,0.1);--glass-border2:rgba(232,88,136,0.18);
+  --header-bg:rgba(14,4,10,0.88);--chat-dot:#e85888;
+  --orb1:rgba(232,88,136,0.15);--orb2:rgba(255,140,190,0.08);
+  --btn-text:#0e040a;--tag-bg:rgba(232,88,136,0.08);--tag-text:#e85888;
+  --input-bg:rgba(232,88,136,0.04);
+}
+[data-theme="forest"]{
+  --bg:#030e06;--bg2:#051409;--bg3:#07190c;--bg4:#091f10;
+  --text:#c4eed0;--text2:#4a7a58;--text3:#1e4430;
+  --accent:#48a86a;--accent2:#78cc90;--accent-glow:rgba(72,168,106,0.25);
+  --glass:rgba(72,168,106,0.035);--glass2:rgba(72,168,106,0.065);
+  --glass-border:rgba(72,168,106,0.1);--glass-border2:rgba(72,168,106,0.18);
+  --header-bg:rgba(3,14,6,0.88);--chat-dot:#48a86a;
+  --orb1:rgba(72,168,106,0.15);--orb2:rgba(110,210,140,0.08);
+  --btn-text:#030e06;--tag-bg:rgba(72,168,106,0.08);--tag-text:#48a86a;
+  --input-bg:rgba(72,168,106,0.04);
+}
+[data-theme="amber"]{
+  --bg:#0e0700;--bg2:#170c00;--bg3:#1f1100;--bg4:#271600;
+  --text:#fff0c0;--text2:#b07828;--text3:#684808;
+  --accent:#e89818;--accent2:#ffc048;--accent-glow:rgba(232,152,24,0.25);
+  --glass:rgba(232,152,24,0.035);--glass2:rgba(232,152,24,0.065);
+  --glass-border:rgba(232,152,24,0.1);--glass-border2:rgba(232,152,24,0.18);
+  --header-bg:rgba(14,7,0,0.88);--chat-dot:#e89818;
+  --orb1:rgba(232,152,24,0.15);--orb2:rgba(255,190,70,0.08);
+  --btn-text:#0e0700;--tag-bg:rgba(232,152,24,0.08);--tag-text:#e89818;
+  --input-bg:rgba(232,152,24,0.04);
+}
+[data-theme="cyan"]{
+  --bg:#000e0e;--bg2:#001414;--bg3:#001b1b;--bg4:#002222;
+  --text:#b8fff8;--text2:#389890;--text3:#185850;
+  --accent:#00d8c8;--accent2:#55f5ec;--accent-glow:rgba(0,216,200,0.25);
+  --glass:rgba(0,216,200,0.035);--glass2:rgba(0,216,200,0.065);
+  --glass-border:rgba(0,216,200,0.1);--glass-border2:rgba(0,216,200,0.18);
+  --header-bg:rgba(0,14,14,0.88);--chat-dot:#00d8c8;
+  --orb1:rgba(0,216,200,0.15);--orb2:rgba(55,240,228,0.08);
+  --btn-text:#000e0e;--tag-bg:rgba(0,216,200,0.08);--tag-text:#00d8c8;
+  --input-bg:rgba(0,216,200,0.04);
+}
+[data-theme="lavender"]{
+  --bg:#070410;--bg2:#0c0818;--bg3:#110c20;--bg4:#161028;
+  --text:#e4d4ff;--text2:#8860c0;--text3:#483880;
+  --accent:#a868f8;--accent2:#cc98ff;--accent-glow:rgba(168,104,248,0.25);
+  --glass:rgba(168,104,248,0.035);--glass2:rgba(168,104,248,0.065);
+  --glass-border:rgba(168,104,248,0.1);--glass-border2:rgba(168,104,248,0.18);
+  --header-bg:rgba(7,4,16,0.88);--chat-dot:#a868f8;
+  --orb1:rgba(168,104,248,0.15);--orb2:rgba(200,140,255,0.08);
+  --btn-text:#070410;--tag-bg:rgba(168,104,248,0.08);--tag-text:#a868f8;
+  --input-bg:rgba(168,104,248,0.04);
+}
+
+/* ═══ RESET & BASE ═══ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%;}
+body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:var(--bg);color:var(--text);overflow-x:hidden;
+  transition:background .35s,color .35s;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;}
+button,a{touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+::selection{background:var(--accent-glow);color:var(--text);}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--text3);border-radius:3px;}
+
+/* ═══ SCROLL PROGRESS ═══ */
+#scroll-progress{
+  position:fixed;top:0;left:0;height:2px;
+  background:var(--accent);z-index:600;width:0%;
+  transition:width .1s linear;box-shadow:0 0 8px var(--accent-glow);
+}
+
+/* ═══ HEADER ═══ */
+#header{
+  position:fixed;top:0;left:0;width:100%;height:64px;
+  background:var(--header-bg);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--glass-border);
+  transform:translateY(0);
+  transition:background .35s;z-index:500;
+}
+.nav{
+  max-width:1160px;margin:0 auto;padding:0 clamp(16px,4vw,40px);
+  height:100%;display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{
+  font-family:'Syne',sans-serif;font-size:17px;font-weight:800;letter-spacing:4px;
+  background:linear-gradient(130deg,var(--text) 40%,var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.nav-links{display:flex;gap:clamp(20px,3vw,36px);align-items:center;}
+.nav-links a{
+  font-size:11.5px;letter-spacing:1.8px;color:var(--text2);
+  transition:color .2s;position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-3px;left:0;
+  width:0;height:1px;background:var(--accent);transition:width .22s ease;
+}
+.nav-links a:hover{color:var(--text);}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.nav-links a.active{color:var(--text);}
+.nav-cta{
+  padding:7px 18px;background:var(--accent);color:var(--btn-text);
+  border-radius:6px;font-size:11.5px;letter-spacing:1.5px;
+  font-family:'Syne',sans-serif;font-weight:700;
+  transition:opacity .2s,transform .15s;
+}
+.nav-cta:hover{opacity:.88;transform:translateY(-1px);}
+@media(max-width:640px){.nav-links{display:none;}}
+
+/* ═══ PAGE HEADER ═══ */
+.page-header{
+  padding:clamp(100px,14vw,160px) clamp(16px,4vw,40px) clamp(60px,8vw,80px);
+  text-align:center;position:relative;overflow:hidden;
+  border-bottom:1px solid var(--glass-border);
+}
+.ph-orb{
+  position:absolute;border-radius:50%;filter:blur(80px);
+  pointer-events:none;opacity:.7;
+}
+.ph-orb-1{width:400px;height:400px;top:-100px;left:-80px;background:var(--orb1);}
+.ph-orb-2{width:320px;height:320px;bottom:-60px;right:-60px;background:var(--orb2);}
+.page-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:5px 18px;border-radius:50px;
+  background:var(--glass);border:1px solid var(--glass-border);
+  font-size:10.5px;letter-spacing:3px;color:var(--text2);
+  margin-bottom:20px;
+  animation:fadeUp .65s both;
+}
+.page-eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);}
+.page-title{
+  font-size:clamp(40px,8vw,80px);font-weight:800;
+  letter-spacing:-1.5px;line-height:1.05;
+  background:linear-gradient(130deg,var(--text) 0%,var(--accent2) 55%,var(--text) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:fadeUp .65s .1s both;
+}
+.page-sub{
+  font-size:clamp(14px,2vw,17px);color:var(--text2);
+  margin-top:16px;font-weight:300;max-width:520px;margin-left:auto;margin-right:auto;
+  animation:fadeUp .65s .2s both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* ═══ SECTION COMMONS ═══ */
+.section-eyebrow{
+  font-size:10.5px;letter-spacing:4px;color:var(--accent);
+  margin-bottom:10px;font-family:'Syne',sans-serif;font-weight:700;
+  text-align:center;
+}
+.section-h{
+  font-size:clamp(28px,4.5vw,48px);font-weight:800;
+  text-align:center;line-height:1.1;color:var(--text);
+}
+.section-p{
+  font-size:clamp(14px,2vw,16px);color:var(--text2);text-align:center;
+  margin-top:10px;font-weight:300;max-width:500px;margin-left:auto;margin-right:auto;
+}
+
+/* ═══ FEATURES GRID ═══ */
+#features-main{
+  padding:clamp(60px,8vw,100px) clamp(16px,4vw,40px);
+  background:var(--bg);
+}
+.features-container{max-width:1100px;margin:0 auto;}
+.features-top{margin-bottom:clamp(40px,6vw,64px);text-align:center;}
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:clamp(32px,5vw,52px);
+}
+.feat-card{
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  border-radius:16px;padding:clamp(20px,3vw,28px);
+  transition:background .22s,border-color .22s,transform .22s,box-shadow .22s;
+  opacity:0;transform:translateY(20px);
+}
+.feat-card.in{opacity:1;transform:translateY(0);}
+.feat-card:hover{
+  background:var(--glass2);border-color:var(--glass-border2);
+  transform:translateY(-3px);
+  box-shadow:0 16px 40px rgba(0,0,0,.2);
+}
+.feat-icon{
+  font-size:28px;margin-bottom:14px;
+  display:flex;align-items:center;justify-content:center;
+  width:52px;height:52px;border-radius:12px;
+  background:var(--glass2);border:1px solid var(--glass-border);
+}
+.feat-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:7px;font-family:'Syne',sans-serif;}
+.feat-desc{font-size:13px;color:var(--text2);line-height:1.65;font-weight:300;}
+@media(max-width:900px){.features-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.features-grid{grid-template-columns:1fr;gap:14px;}}
+
+/* ═══ TECH STACK ═══ */
+#tech-stack{
+  padding:clamp(60px,8vw,100px) clamp(16px,4vw,40px);
+  background:var(--bg2);
+  border-top:1px solid var(--glass-border);
+  border-bottom:1px solid var(--glass-border);
+}
+.tech-inner{max-width:860px;margin:0 auto;}
+.tech-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  margin-top:clamp(32px,5vw,52px);
+}
+.tech-card{
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:14px;padding:20px;
+  display:flex;align-items:center;gap:14px;
+  transition:background .2s,border-color .2s,transform .2s;
+  opacity:0;transform:translateX(-16px);
+}
+.tech-card.in{opacity:1;transform:translateX(0);}
+.tech-card:hover{background:var(--glass2);border-color:var(--glass-border2);transform:translateY(-2px);}
+.tech-icon{font-size:22px;width:44px;height:44px;border-radius:10px;background:var(--glass2);border:1px solid var(--glass-border);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.tech-name{font-size:14px;font-weight:600;font-family:'Syne',sans-serif;color:var(--text);margin-bottom:2px;}
+.tech-role{font-size:11.5px;color:var(--text2);}
+@media(max-width:700px){.tech-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:440px){.tech-grid{grid-template-columns:1fr;}}
+
+/* ═══ VISION ═══ */
+#vision{
+  padding:clamp(60px,8vw,100px) clamp(16px,4vw,40px);
+  background:var(--bg);
+}
+.vision-inner{max-width:1060px;margin:0 auto;}
+.vision-top{text-align:center;margin-bottom:clamp(40px,6vw,64px);}
+.vision-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,60px);
+  align-items:start;
+}
+.vision-body{
+  font-size:clamp(14px,2vw,16px);color:var(--text2);line-height:1.9;
+  font-weight:300;margin-bottom:28px;
+}
+.future-tags{display:flex;flex-wrap:wrap;gap:9px;}
+.f-tag{
+  padding:7px 16px;
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:50px;font-size:12px;letter-spacing:.4px;
+  color:var(--tag-text);
+  transition:background .2s,border-color .2s,transform .2s;
+  opacity:0;transform:scale(.92);
+}
+.f-tag.in{opacity:1;transform:scale(1);}
+.f-tag:hover{background:var(--glass2);border-color:var(--glass-border2);transform:translateY(-2px);}
+.roadmap{display:flex;flex-direction:column;}
+.rm-item{
+  display:flex;gap:18px;
+  padding-bottom:28px;position:relative;
+  opacity:0;transform:translateX(20px);
+  transition:opacity .55s,transform .55s;
+}
+.rm-item.in{opacity:1;transform:translateX(0);}
+.rm-item:not(:last-child)::before{
+  content:'';position:absolute;left:18px;top:38px;bottom:0;
+  width:1px;background:var(--glass-border);
+}
+.rm-dot{
+  width:38px;height:38px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:15px;
+  background:var(--glass2);border:1px solid var(--glass-border2);
+  box-shadow:0 0 14px var(--accent-glow);
+}
+.rm-content h4{font-size:14.5px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.rm-content p{font-size:12.5px;color:var(--text2);font-weight:300;line-height:1.65;}
+.rm-status{
+  display:inline-block;margin-top:5px;
+  font-size:9.5px;letter-spacing:1.5px;
+  padding:2px 10px;border-radius:20px;
+  background:var(--tag-bg);color:var(--tag-text);
+  font-family:'Syne',sans-serif;font-weight:600;
+}
+@media(max-width:720px){
+  .vision-grid{grid-template-columns:1fr;}
+}
+
+/* ═══ COPYRIGHT BLOCK ═══ */
+.copyright-block{
+  padding:clamp(32px,5vw,56px) clamp(16px,4vw,40px);
+  background:var(--bg2);
+  border-top:1px solid var(--glass-border);
+}
+.copyright-inner{
+  max-width:860px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:18px;
+}
+.copyright-text{font-size:12px;color:var(--text3);letter-spacing:.4px;line-height:1.7;}
+.copyright-text strong{color:var(--text2);}
+.copyright-badge{
+  display:flex;align-items:center;gap:8px;padding:8px 18px;
+  background:var(--glass2);border:1px solid var(--glass-border2);
+  border-radius:50px;font-size:10.5px;letter-spacing:2px;color:var(--accent);
+  font-family:'Syne',sans-serif;font-weight:700;flex-shrink:0;
+}
+
+/* ═══ FOOTER ═══ */
+footer{
+  padding:clamp(40px,6vw,64px) clamp(16px,4vw,40px);
+  background:var(--bg2);border-top:1px solid var(--glass-border);text-align:center;
+}
+.footer-logo{
+  font-family:'Syne',sans-serif;font-size:clamp(22px,4vw,30px);font-weight:800;letter-spacing:6px;
+  background:linear-gradient(130deg,var(--text),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:10px;
+}
+.footer-line{width:50px;height:1.5px;margin:14px auto;background:linear-gradient(90deg,transparent,var(--accent),transparent);}
+.footer-sub{font-size:12px;color:var(--text3);margin-bottom:4px;}
+.footer-copy{font-size:11px;color:var(--text3);}
+
+/* ═══ THEME SWITCHER ═══ */
+#themeWrap{
+  position:fixed;bottom:calc(28px + env(safe-area-inset-bottom));
+  left:calc(28px + env(safe-area-inset-left));z-index:900;
+}
+#themeBtn{
+  width:48px;height:48px;border-radius:50%;background:var(--glass2);color:var(--text);
+  border:1px solid var(--glass-border2);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 20px rgba(0,0,0,.28);backdrop-filter:blur(16px);
+  transition:transform .28s ease,background .35s;
+}
+#themeBtn:hover{transform:rotate(45deg);}
+#themePanel{
+  display:none;position:absolute;bottom:58px;left:0;min-width:185px;
+  background:var(--bg2);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  border:1px solid var(--glass-border2);border-radius:14px;padding:16px;
+  box-shadow:0 18px 50px rgba(0,0,0,.45);
+  animation:panelIn .18s ease both;
+}
+#themePanel.open{display:block;}
+@keyframes panelIn{from{opacity:0;transform:scale(.92) translateY(6px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.tp-title{font-size:9px;letter-spacing:4px;color:var(--text3);margin-bottom:12px;font-family:'Syne',sans-serif;font-weight:700;}
+.t-opts{display:flex;flex-direction:column;gap:3px;}
+.t-sw{
+  display:flex;align-items:center;gap:9px;padding:7px 10px;border:none;background:none;
+  cursor:pointer;border-radius:7px;font-size:12.5px;color:var(--text);
+  font-family:'DM Sans',sans-serif;transition:background .14s;text-align:left;width:100%;
+}
+.t-sw:hover{background:var(--glass2);}
+.t-sw.on{background:var(--glass2);font-weight:500;}
+.t-sw span{width:16px;height:16px;border-radius:50%;flex-shrink:0;display:inline-block;border:1.5px solid var(--glass-border2);}
+</style>
+</head>
+<body>
+
+<div id="scroll-progress" aria-hidden="true"></div>
+
+<!-- ═══ HEADER ═══ -->
+<header id="header">
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">GINI AI</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#model">Model</a>
+      <a href="#features-main" class="active">Features</a>
+      <a href="#vision">Vision</a>
+    </div>
+    <a href="index.html" class="nav-cta">← Back to App</a>
+  </nav>
+</header>
+
+<!-- ═══ PAGE HEADER ═══ -->
+<div class="page-header">
+  <div class="ph-orb ph-orb-1" aria-hidden="true"></div>
+  <div class="ph-orb ph-orb-2" aria-hidden="true"></div>
+  <div class="page-eyebrow"><span class="page-eyebrow-dot"></span>CAPABILITIES & ROADMAP</div>
+  <h1 class="page-title">Features & Vision</h1>
+  <p class="page-sub">Everything Gini AI can do today — and everything it's being built to become.</p>
+</div>
+
+<!-- ═══ FEATURES ═══ -->
+<section id="features-main">
+  <div class="features-container">
+    <div class="features-top">
+      <div class="section-eyebrow">CORE CAPABILITIES</div>
+      <h2 class="section-h">What Gini Can Do</h2>
+      <p class="section-p">Designed from scratch. Zero APIs. Full offline power.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon">🎙️</div>
+        <div class="feat-title">Voice Recognition</div>
+        <div class="feat-desc">Real-time offline speech recognition powered by Vosk. No internet, no cloud, no latency from external calls.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔊</div>
+        <div class="feat-title">Text to Speech</div>
+        <div class="feat-desc">Natural voice output via pyttsx3. Gini responds aloud with configurable speed, pitch, and voice profiles.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🧠</div>
+        <div class="feat-title">Natural Language Understanding</div>
+        <div class="feat-desc">Intent classification and entity recognition using HuggingFace Transformers — fully local inference.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🌐</div>
+        <div class="feat-title">Web Automation</div>
+        <div class="feat-desc">Selenium-powered browser control. Gini can search, navigate, fill forms, and extract data automatically.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">👁️</div>
+        <div class="feat-title">Computer Vision</div>
+        <div class="feat-desc">OpenCV and TensorFlow for visual input processing — screen analysis, object detection, and more.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">⚙️</div>
+        <div class="feat-title">Task Execution</div>
+        <div class="feat-desc">Open apps, control files, set reminders, manage system tasks — all through natural voice or text commands.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">💾</div>
+        <div class="feat-title">Local Memory</div>
+        <div class="feat-desc">Gini remembers your preferences, context, and interaction history — stored privately on your device only.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🇮🇳</div>
+        <div class="feat-title">Hindi Input Support</div>
+        <div class="feat-desc">Gini understands Hindi queries and mixed-language input, responding intelligently in English.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📱</div>
+        <div class="feat-title">Phone Integration</div>
+        <div class="feat-desc">With permission, Gini can access phone functions — calls, messages, and device controls — on supported platforms.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔐</div>
+        <div class="feat-title">Full Privacy</div>
+        <div class="feat-desc">Zero data transmission. Every computation stays on your hardware. No telemetry, no tracking, no compromise.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔄</div>
+        <div class="feat-title">Self-Updating</div>
+        <div class="feat-desc">Gini can update its own modules and knowledge base when instructed — staying current without manual intervention.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🎨</div>
+        <div class="feat-title">Desktop GUI</div>
+        <div class="feat-desc">A full animated desktop interface with the Gini character model, settings dashboard, and visual status — coming in Phase 3.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TECH STACK ═══ -->
+<section id="tech-stack">
+  <div class="tech-inner">
+    <div style="text-align:center;margin-bottom:clamp(32px,5vw,52px)">
+      <div class="section-eyebrow">TECHNOLOGY</div>
+      <h2 class="section-h">Built With</h2>
+      <p class="section-p">Open source only. No paid APIs. Complete independence.</p>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-card" style="transition-delay:.00s">
+        <div class="tech-icon">🐍</div>
+        <div><div class="tech-name">Python</div><div class="tech-role">Core runtime & logic</div></div>
+      </div>
+      <div class="tech-card" style="transition-delay:.05s">
+        <div class="tech-icon">🎤</div>
+        <div><div class="tech-name">Vosk</div><div class="tech-role">Offline speech recognition</div></div>
+      </div>
+      <div class="tech-card" style="transition-delay:.10s">
+        <div class="tech-icon">🔊</div>
+        <div><div class="tech-name">pyttsx3</div><div class="tech-role">Text-to-speech engine</div></div>
+      </div>
+      <div class="tech-card" style="transition-delay:.15s">
+        <div class="tech-icon">🤗</div>
+        <div><div class="tech-name">Transformers</div><div class="tech-role">NLU & language models</div></div>
+      </div>
+      <div class="tech-card" style="transition-delay:.20s">
+        <div class="tech-icon">👁️</div>
+        <div><div class="tech-name">OpenCV</div><div class="tech-role">Computer vision</div></div>
+      </div>
+      <div class="tech-card" style="transition-delay:.25s">
+        <div class="tech-icon">🧬</div>
+        <div><div class="tech-name">TensorFlow</div><div class="tech-role">Deep learning inference</div></div>
+      </div>
+      <div class="tech-card" style="transition-delay:.30s">
+        <div class="tech-icon">🌐</div>
+        <div><div class="tech-name">Selenium</div><div class="tech-role">Web automation</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ VISION ═══ -->
+<section id="vision">
+  <div class="vision-inner">
+    <div class="vision-top">
+      <div class="section-eyebrow">ROADMAP</div>
+      <h2 class="section-h">The Future of Gini AI</h2>
+      <p class="section-p">Every phase brings Gini closer to a truly capable, human-level offline AI.</p>
+    </div>
+    <div class="vision-grid">
+      <div>
+        <p class="vision-body">Gini is being built to become the most capable offline personal AI created by an independent developer — a true ANMOL Intelligence for everyone. Every iteration gets smarter, more natural, and more seamlessly integrated into daily life.</p>
+        <div class="future-tags">
+          <span class="f-tag">Emotional Intelligence</span>
+          <span class="f-tag">IoT Control</span>
+          <span class="f-tag">Multi-device</span>
+          <span class="f-tag">AR Interface</span>
+          <span class="f-tag">Wake Word</span>
+          <span class="f-tag">3D Visualization</span>
+          <span class="f-tag">Self-updating</span>
+          <span class="f-tag">Hindi NLU</span>
+          <span class="f-tag">Phone Integration</span>
+          <span class="f-tag">Local LLM</span>
+          <span class="f-tag">Contextual Memory</span>
+        </div>
+      </div>
+      <div class="roadmap">
+        <div class="rm-item" style="transition-delay:.00s">
+          <div class="rm-dot">✅</div>
+          <div class="rm-content">
+            <h4>Phase 1 — Core Engine</h4>
+            <p>Voice I/O, basic Q&amp;A, task execution, web automation foundation</p>
+            <span class="rm-status">COMPLETE</span>
+          </div>
+        </div>
+        <div class="rm-item" style="transition-delay:.1s">
+          <div class="rm-dot">🔧</div>
+          <div class="rm-content">
+            <h4>Phase 2 — NLU Expansion</h4>
+            <p>Improved intent recognition, memory system, context awareness, voice command interaction</p>
+            <span class="rm-status">IN PROGRESS</span>
+          </div>
+        </div>
+        <div class="rm-item" style="transition-delay:.2s">
+          <div class="rm-dot">🎨</div>
+          <div class="rm-content">
+            <h4>Phase 3 — GUI & Design</h4>
+            <p>Full desktop interface, animated Gini model, settings dashboard, visual status</p>
+            <span class="rm-status">PLANNED</span>
+          </div>
+        </div>
+        <div class="rm-item" style="transition-delay:.3s">
+          <div class="rm-dot">🚀</div>
+          <div class="rm-content">
+            <h4>Phase 4 — Advanced AI</h4>
+            <p>Local LLM reasoning, AR interaction, IoT control, emotional intelligence, and beyond</p>
+            <span class="rm-status">FUTURE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COPYRIGHT ═══ -->
+<div class="copyright-block">
+  <div class="copyright-inner">
+    <div class="copyright-text">
+      <strong>© 2026 Gini AI — All Feature Concepts Reserved.</strong><br>
+      The feature set, architecture, design, character identity, and system concepts are the intellectual property of <strong>ANMOL</strong> (Creator & Developer, Lucknow, India).
+      Unauthorized reproduction or commercial use without written permission is strictly prohibited.
+    </div>
+    <div class="copyright-badge">🔒 PROTECTED</div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-logo">GINI AI</div>
+  <div class="footer-line"></div>
+  <p class="footer-sub">Designed &amp; Built by ANMOL · Lucknow, India</p>
+  <p class="footer-copy">© 2026 Gini AI. All rights reserved.</p>
+</footer>
+
+<!-- ═══ THEME SWITCHER ═══ -->
+<div id="themeWrap">
+  <button id="themeBtn" aria-label="Switch theme">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+  </button>
+  <div id="themePanel">
+    <p class="tp-title">CHOOSE THEME</p>
+    <div class="t-opts">
+      <button class="t-sw on" data-theme="dark"><span style="background:#7c6aff"></span>Dark</button>
+      <button class="t-sw" data-theme="light"><span style="background:#5b45e8"></span>Light</button>
+      <button class="t-sw" data-theme="midnight"><span style="background:#38bdf8"></span>Midnight</button>
+      <button class="t-sw" data-theme="rose"><span style="background:#e85888"></span>Rose</button>
+      <button class="t-sw" data-theme="forest"><span style="background:#48a86a"></span>Forest</button>
+      <button class="t-sw" data-theme="amber"><span style="background:#e89818"></span>Amber</button>
+      <button class="t-sw" data-theme="cyan"><span style="background:#00d8c8"></span>Cyan</button>
+      <button class="t-sw" data-theme="lavender"><span style="background:#a868f8"></span>Lavender</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Scroll progress */
+(function(){
+  const bar=document.getElementById('scroll-progress');
+  function update(){const h=document.documentElement.scrollHeight-window.innerHeight;if(h<=0)return;bar.style.width=(window.scrollY/h*100)+'%';}
+  window.addEventListener('scroll',update,{passive:true});
+})();
+
+/* Scroll reveal */
+(function(){
+  const observe=(selector,threshold=.12)=>{
+    const els=document.querySelectorAll(selector);
+    const io=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+      });
+    },{threshold});
+    els.forEach(el=>io.observe(el));
+  };
+  observe('.feat-card');
+  observe('.tech-card');
+  observe('.rm-item');
+  /* F-tags staggered */
+  const tags=document.querySelectorAll('.f-tag');
+  const tio=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        tags.forEach((t,i)=>setTimeout(()=>t.classList.add('in'),i*55));
+        tio.disconnect();
+      }
+    });
+  },{threshold:.1});
+  const container=document.querySelector('.future-tags');
+  if(container)tio.observe(container);
+  /* Feat cards stagger */
+  document.querySelectorAll('.feat-card').forEach((c,i)=>{c.style.transition=`opacity .5s ${i*.07}s, transform .5s ${i*.07}s, background .22s, border-color .22s, box-shadow .22s`;});
+  document.querySelectorAll('.tech-card').forEach((c,i)=>{c.style.transitionDelay=c.style.transitionDelay||`${i*.05}s`;c.style.transition=`opacity .5s ${i*.05}s, transform .5s ${i*.05}s, background .2s, border-color .2s`;});
+})();
+
+/* Theme */
+(function(){
+  const html=document.documentElement;
+  const btn=document.getElementById('themeBtn');
+  const panel=document.getElementById('themePanel');
+  const swatches=document.querySelectorAll('.t-sw');
+  const saved=localStorage.getItem('gini-theme')||'dark';
+  apply(saved);
+  btn.addEventListener('click',e=>{e.stopPropagation();const o=panel.classList.toggle('open');btn.style.transform=o?'rotate(180deg)':'';});
+  document.addEventListener('click',()=>{panel.classList.remove('open');btn.style.transform='';});
+  panel.addEventListener('click',e=>e.stopPropagation());
+  swatches.forEach(s=>{s.addEventListener('click',()=>{apply(s.dataset.theme);panel.classList.remove('open');btn.style.transform='';});});
+  function apply(t){html.setAttribute('data-theme',t);localStorage.setItem('gini-theme',t);swatches.forEach(s=>s.classList.toggle('on',s.dataset.theme===t));}
+})();
+</script>
+</body>
+</html>
 
