@@ -1,134 +1,1607 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <title>Gini AI</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gini AI — Designing Intelligence for the Future</title>
+<meta name="description" content="Gini AI — A Jarvis-level offline personal AI assistant built by ANMOL.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   THEME VARIABLES
+═══════════════════════════════════════════════════════════════ */
+:root,[data-theme="dark"]{
+  --bg:#0a0a0f;--bg2:#0f0f18;--bg3:#141420;--bg4:#1a1a28;
+  --text:#f0f0ff;--text2:#9898b8;--text3:#555570;
+  --accent:#7c6aff;--accent2:#a594ff;--accent-glow:rgba(124,106,255,0.35);
+  --glass:rgba(255,255,255,0.04);--glass2:rgba(255,255,255,0.07);
+  --glass-border:rgba(255,255,255,0.1);--glass-border2:rgba(255,255,255,0.15);
+  --card-shadow:0 8px 40px rgba(0,0,0,0.6);
+  --header-bg:rgba(10,10,15,0.85);
+  --chat-dot:#00ff88;
+  --orb1:rgba(124,106,255,0.18);--orb2:rgba(80,200,255,0.1);--orb3:rgba(255,100,200,0.08);
+  --btn-text:#fff;--tag-bg:rgba(124,106,255,0.12);--tag-text:#a594ff;
+  --input-bg:rgba(255,255,255,0.06);
+}
+[data-theme="light"]{
+  --bg:#f8f8fc;--bg2:#f0f0f8;--bg3:#e8e8f4;--bg4:#e0e0ec;
+  --text:#0a0a1a;--text2:#44445a;--text3:#888899;
+  --accent:#5b45e8;--accent2:#7c6aff;--accent-glow:rgba(91,69,232,0.2);
+  --glass:rgba(0,0,0,0.03);--glass2:rgba(0,0,0,0.05);
+  --glass-border:rgba(0,0,0,0.08);--glass-border2:rgba(0,0,0,0.12);
+  --card-shadow:0 8px 40px rgba(0,0,0,0.08);
+  --header-bg:rgba(248,248,252,0.9);
+  --chat-dot:#00cc66;
+  --orb1:rgba(91,69,232,0.1);--orb2:rgba(50,150,255,0.07);--orb3:rgba(200,80,180,0.06);
+  --btn-text:#fff;--tag-bg:rgba(91,69,232,0.08);--tag-text:#5b45e8;
+  --input-bg:rgba(0,0,0,0.04);
+}
+[data-theme="midnight"]{
+  --bg:#050d1a;--bg2:#071424;--bg3:#0a1a2e;--bg4:#0d2038;
+  --text:#d8eeff;--text2:#6a9abf;--text3:#2a5070;
+  --accent:#38bdf8;--accent2:#7dd3fc;--accent-glow:rgba(56,189,248,0.3);
+  --glass:rgba(56,189,248,0.04);--glass2:rgba(56,189,248,0.07);
+  --glass-border:rgba(56,189,248,0.12);--glass-border2:rgba(56,189,248,0.2);
+  --card-shadow:0 8px 40px rgba(0,0,0,0.7);
+  --header-bg:rgba(5,13,26,0.9);
+  --chat-dot:#38bdf8;
+  --orb1:rgba(56,189,248,0.15);--orb2:rgba(100,200,255,0.08);--orb3:rgba(30,100,200,0.1);
+  --btn-text:#050d1a;--tag-bg:rgba(56,189,248,0.1);--tag-text:#38bdf8;
+  --input-bg:rgba(56,189,248,0.05);
+}
+[data-theme="rose"]{
+  --bg:#0f050a;--bg2:#170810;--bg3:#200b15;--bg4:#280e1a;
+  --text:#ffe0ee;--text2:#c06080;--text3:#703050;
+  --accent:#f06090;--accent2:#ff90b8;--accent-glow:rgba(240,96,144,0.3);
+  --glass:rgba(240,96,144,0.04);--glass2:rgba(240,96,144,0.07);
+  --glass-border:rgba(240,96,144,0.12);--glass-border2:rgba(240,96,144,0.2);
+  --card-shadow:0 8px 40px rgba(0,0,0,0.7);
+  --header-bg:rgba(15,5,10,0.9);
+  --chat-dot:#f06090;
+  --orb1:rgba(240,96,144,0.18);--orb2:rgba(255,150,200,0.1);--orb3:rgba(180,60,120,0.12);
+  --btn-text:#0f050a;--tag-bg:rgba(240,96,144,0.1);--tag-text:#f06090;
+  --input-bg:rgba(240,96,144,0.05);
+}
+[data-theme="forest"]{
+  --bg:#030f07;--bg2:#051509;--bg3:#071a0c;--bg4:#092010;
+  --text:#c8f0d0;--text2:#508060;--text3:#204830;
+  --accent:#4caf70;--accent2:#80d890;--accent-glow:rgba(76,175,112,0.3);
+  --glass:rgba(76,175,112,0.04);--glass2:rgba(76,175,112,0.07);
+  --glass-border:rgba(76,175,112,0.12);--glass-border2:rgba(76,175,112,0.2);
+  --card-shadow:0 8px 40px rgba(0,0,0,0.7);
+  --header-bg:rgba(3,15,7,0.9);
+  --chat-dot:#4caf70;
+  --orb1:rgba(76,175,112,0.18);--orb2:rgba(120,220,150,0.1);--orb3:rgba(40,120,70,0.12);
+  --btn-text:#030f07;--tag-bg:rgba(76,175,112,0.1);--tag-text:#4caf70;
+  --input-bg:rgba(76,175,112,0.05);
+}
+[data-theme="amber"]{
+  --bg:#0f0800;--bg2:#180d00;--bg3:#201200;--bg4:#281700;
+  --text:#fff0c8;--text2:#c08030;--text3:#705010;
+  --accent:#f0a020;--accent2:#ffc850;--accent-glow:rgba(240,160,32,0.3);
+  --glass:rgba(240,160,32,0.04);--glass2:rgba(240,160,32,0.07);
+  --glass-border:rgba(240,160,32,0.12);--glass-border2:rgba(240,160,32,0.2);
+  --card-shadow:0 8px 40px rgba(0,0,0,0.7);
+  --header-bg:rgba(15,8,0,0.9);
+  --chat-dot:#f0a020;
+  --orb1:rgba(240,160,32,0.18);--orb2:rgba(255,200,80,0.1);--orb3:rgba(180,100,20,0.12);
+  --btn-text:#0f0800;--tag-bg:rgba(240,160,32,0.1);--tag-text:#f0a020;
+  --input-bg:rgba(240,160,32,0.05);
+}
+[data-theme="cyan"]{
+  --bg:#000f0f;--bg2:#001515;--bg3:#001c1c;--bg4:#002424;
+  --text:#c0fffa;--text2:#40a098;--text3:#206058;
+  --accent:#00e5d0;--accent2:#60fff0;--accent-glow:rgba(0,229,208,0.3);
+  --glass:rgba(0,229,208,0.04);--glass2:rgba(0,229,208,0.07);
+  --glass-border:rgba(0,229,208,0.12);--glass-border2:rgba(0,229,208,0.2);
+  --card-shadow:0 8px 40px rgba(0,0,0,0.7);
+  --header-bg:rgba(0,15,15,0.9);
+  --chat-dot:#00e5d0;
+  --orb1:rgba(0,229,208,0.18);--orb2:rgba(60,255,240,0.1);--orb3:rgba(0,150,140,0.12);
+  --btn-text:#000f0f;--tag-bg:rgba(0,229,208,0.1);--tag-text:#00e5d0;
+  --input-bg:rgba(0,229,208,0.05);
+}
+[data-theme="lavender"]{
+  --bg:#08050f;--bg2:#0d0818;--bg3:#120c20;--bg4:#171028;
+  --text:#e8d8ff;--text2:#9070c0;--text3:#504080;
+  --accent:#b070ff;--accent2:#d0a0ff;--accent-glow:rgba(176,112,255,0.3);
+  --glass:rgba(176,112,255,0.04);--glass2:rgba(176,112,255,0.07);
+  --glass-border:rgba(176,112,255,0.12);--glass-border2:rgba(176,112,255,0.2);
+  --card-shadow:0 8px 40px rgba(0,0,0,0.7);
+  --header-bg:rgba(8,5,15,0.9);
+  --chat-dot:#b070ff;
+  --orb1:rgba(176,112,255,0.18);--orb2:rgba(210,150,255,0.1);--orb3:rgba(120,70,200,0.12);
+  --btn-text:#08050f;--tag-bg:rgba(176,112,255,0.1);--tag-text:#b070ff;
+  --input-bg:rgba(176,112,255,0.05);
+}
 
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/animations.css">
-  <link rel="stylesheet" href="css/model1.css">
+/* ═══════════════════════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);color:var(--text);
+  overflow-x:hidden;
+  transition:background .4s,color .4s;
+}
+h1,h2,h3,h4{font-family:'Syne',sans-serif;}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;}
+::selection{background:var(--accent-glow);color:var(--text);}
 
-  <style>
-    /* CHAT BUTTON */
-    #chatBtn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 12px 18px;
-      background: #000;
-      color: #fff;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      z-index: 1000;
-    }
+/* Scrollbar */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--text3);border-radius:3px;}
 
-    /* CHAT BOX */
-    #chatBox {
-      display: none;
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      width: 300px;
-      background: #111;
-      color: #fff;
-      border-radius: 12px;
-      padding: 10px;
-      z-index: 1000;
-    }
+/* Glass mixin helper classes */
+.glass{
+  background:var(--glass);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid var(--glass-border);
+}
+.glass2{
+  background:var(--glass2);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border:1px solid var(--glass-border2);
+}
 
-    #messages {
-      height: 200px;
-      overflow-y: auto;
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
+/* ═══════════════════════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════════════════════ */
+#header{
+  position:fixed;top:0;left:0;width:100%;height:68px;
+  background:var(--header-bg);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--glass-border);
+  transform:translateY(-100%);
+  transition:transform .5s cubic-bezier(.22,1,.36,1),background .4s;
+  z-index:500;
+}
+#header.show{transform:translateY(0);}
+.nav{
+  max-width:1200px;margin:0 auto;padding:0 32px;
+  height:100%;display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{
+  font-family:'Syne',sans-serif;font-size:18px;font-weight:800;
+  letter-spacing:4px;color:var(--text);
+  background:linear-gradient(135deg,var(--text),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.nav-links{display:flex;gap:36px;align-items:center;}
+.nav-links a{
+  font-size:12px;letter-spacing:2px;color:var(--text2);
+  transition:color .2s;position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;left:0;
+  width:0;height:1px;background:var(--accent);
+  transition:width .25s ease;
+}
+.nav-links a:hover{color:var(--text);}
+.nav-links a:hover::after{width:100%;}
+.nav-cta{
+  padding:8px 20px;
+  background:var(--accent);color:var(--btn-text);
+  border-radius:6px;font-size:12px;letter-spacing:1.5px;
+  font-family:'Syne',sans-serif;font-weight:600;
+  transition:opacity .2s,transform .2s;
+}
+.nav-cta:hover{opacity:.85;transform:translateY(-1px);}
 
-    #userInput {
-      width: 70%;
-      padding: 5px;
-      border: none;
-      outline: none;
-    }
+/* ═══════════════════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════════════════ */
+#hero{
+  min-height:100vh;position:relative;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;padding:0 24px;
+}
+#particles{position:absolute;inset:0;pointer-events:none;z-index:0;}
+.orb{
+  position:absolute;border-radius:50%;
+  filter:blur(100px);pointer-events:none;z-index:0;
+}
+.orb-1{width:600px;height:600px;top:-150px;left:-200px;background:var(--orb1);animation:orbA 14s ease-in-out infinite;}
+.orb-2{width:500px;height:500px;bottom:-100px;right:-150px;background:var(--orb2);animation:orbA 18s ease-in-out infinite reverse;}
+.orb-3{width:400px;height:400px;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--orb3);animation:orbB 10s ease-in-out infinite;}
+@keyframes orbA{0%,100%{transform:translate(0,0);}33%{transform:translate(40px,-30px);}66%{transform:translate(-30px,40px);}}
+@keyframes orbB{0%,100%{transform:translate(-50%,-50%) scale(1);}50%{transform:translate(-50%,-50%) scale(1.2);}}
 
-    #sendBtn {
-      width: 25%;
-      padding: 5px;
-      background: #fff;
-      color: #000;
-      border: none;
-      cursor: pointer;
-    }
-  </style>
+.hero-inner{
+  position:relative;z-index:2;text-align:center;
+  max-width:900px;
+}
+.hero-chip{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 18px;border-radius:50px;
+  background:var(--glass);border:1px solid var(--glass-border);
+  font-size:11px;letter-spacing:3px;color:var(--text2);
+  margin-bottom:32px;
+  animation:fadeUp .8s .0s both;
+}
+.hero-chip-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulseDot 2s infinite;}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.7);}}
+
+.hero-title{
+  font-size:clamp(72px,12vw,140px);font-weight:800;
+  letter-spacing:-2px;line-height:.95;
+  background:linear-gradient(135deg,var(--text) 0%,var(--accent2) 50%,var(--text) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  background-size:200%;
+  animation:fadeUp .8s .15s both,shimmerText 4s linear 1s infinite;
+}
+@keyframes shimmerText{0%{background-position:0%;}100%{background-position:200%;}}
+
+.hero-sub{
+  font-size:18px;color:var(--text2);letter-spacing:1px;
+  margin:24px 0 44px;font-weight:300;
+  animation:fadeUp .8s .3s both;
+}
+.hero-btns{
+  display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp .8s .45s both;
+}
+.btn-glow{
+  padding:14px 36px;background:var(--accent);color:var(--btn-text);
+  border:none;border-radius:8px;font-family:'Syne',sans-serif;
+  font-size:13px;font-weight:700;letter-spacing:1.5px;cursor:pointer;
+  position:relative;overflow:hidden;
+  box-shadow:0 0 30px var(--accent-glow);
+  transition:transform .2s,box-shadow .2s;
+}
+.btn-glow::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.2),transparent);
+  opacity:0;transition:opacity .2s;
+}
+.btn-glow:hover{transform:translateY(-3px);box-shadow:0 0 50px var(--accent-glow);}
+.btn-glow:hover::before{opacity:1;}
+
+.btn-ghost{
+  padding:14px 36px;background:var(--glass);color:var(--text);
+  border:1px solid var(--glass-border2);border-radius:8px;
+  font-family:'Syne',sans-serif;font-size:13px;font-weight:600;
+  letter-spacing:1.5px;cursor:pointer;
+  backdrop-filter:blur(12px);
+  transition:background .2s,transform .2s,border-color .2s;
+}
+.btn-ghost:hover{background:var(--glass2);transform:translateY(-3px);border-color:var(--accent);}
+
+.scroll-indicator{
+  margin-top:64px;display:flex;flex-direction:column;align-items:center;gap:12px;
+  animation:fadeUp .8s .7s both;
+}
+.scroll-label{font-size:10px;letter-spacing:3px;color:var(--text3);}
+.scroll-track{
+  width:24px;height:40px;border:1.5px solid var(--text3);
+  border-radius:12px;display:flex;align-items:flex-start;justify-content:center;padding-top:6px;
+}
+.scroll-ball{
+  width:4px;height:8px;background:var(--accent);border-radius:2px;
+  animation:scrollBall 2s ease-in-out infinite;
+}
+@keyframes scrollBall{0%{transform:translateY(0);opacity:1;}80%{transform:translateY(16px);opacity:0;}100%{transform:translateY(0);opacity:0;}}
+
+/* Hero glow line */
+.hero-line{
+  position:absolute;bottom:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:.4;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STATS
+═══════════════════════════════════════════════════════════════ */
+#stats{
+  padding:64px 24px;
+  background:var(--bg2);
+  border-top:1px solid var(--glass-border);
+  border-bottom:1px solid var(--glass-border);
+}
+.stats-inner{
+  max-width:900px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;
+}
+.stat-box{
+  text-align:center;padding:32px 20px;
+  border-right:1px solid var(--glass-border);
+}
+.stat-box:last-child{border-right:none;}
+.stat-n{
+  font-family:'Syne',sans-serif;font-size:56px;font-weight:800;
+  line-height:1;color:var(--text);
+}
+.stat-n span{color:var(--accent);}
+.stat-l{font-size:11px;letter-spacing:3px;color:var(--text3);margin-top:8px;}
+
+/* ═══════════════════════════════════════════════════════════════
+   MODEL / MEET GINI
+═══════════════════════════════════════════════════════════════ */
+#model{
+  padding:120px 24px;
+  background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;overflow:hidden;
+}
+.section-eyebrow{
+  font-size:11px;letter-spacing:4px;color:var(--accent);
+  margin-bottom:12px;font-family:'Syne',sans-serif;font-weight:600;
+}
+.section-h{
+  font-size:clamp(36px,5vw,64px);font-weight:800;
+  text-align:center;line-height:1.1;color:var(--text);
+}
+.section-p{
+  font-size:16px;color:var(--text2);text-align:center;
+  margin-top:12px;font-weight:300;max-width:540px;
+}
+
+.slider-wrap{margin-top:64px;display:flex;flex-direction:column;align-items:center;gap:24px;}
+.slider-frame{
+  width:320px;max-width:90vw;
+  border-radius:24px;overflow:hidden;
+  position:relative;
+  box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 0 1px var(--glass-border);
+}
+.slider-frame::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.5));
+  z-index:1;pointer-events:none;border-radius:24px;
+}
+/* Glass shine overlay */
+.slider-frame::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:40%;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),transparent);
+  z-index:2;pointer-events:none;
+}
+.slides{display:flex;transition:transform .7s cubic-bezier(.77,0,.175,1);will-change:transform;}
+.slides img{width:320px;max-width:90vw;flex-shrink:0;object-fit:cover;aspect-ratio:3/4;}
+.slider-dots{display:flex;gap:8px;}
+.s-dot{
+  width:28px;height:4px;border-radius:2px;
+  background:var(--text3);cursor:pointer;
+  transition:background .3s,width .3s;
+}
+.s-dot.on{background:var(--accent);width:44px;}
+
+/* ═══════════════════════════════════════════════════════════════
+   FEATURES — MAIN GRID
+═══════════════════════════════════════════════════════════════ */
+#features{
+  padding:120px 24px;
+  background:var(--bg2);
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;overflow:hidden;
+}
+.features-grid{
+  margin-top:64px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  max-width:1100px;width:100%;
+}
+.feat-card{
+  background:var(--glass);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border:1px solid var(--glass-border);
+  border-radius:20px;
+  padding:36px 28px;
+  position:relative;overflow:hidden;
+  transition:transform .3s,box-shadow .3s,border-color .3s;
+  transition-delay:var(--cd,0s);
+  cursor:default;
+}
+.feat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.feat-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 0 1px var(--glass-border2),0 0 40px var(--accent-glow);
+  border-color:var(--glass-border2);
+}
+.feat-card:hover::before{opacity:1;}
+/* Shimmer sweep */
+.feat-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.04) 50%,transparent 70%);
+  transform:translateX(-100%);transition:transform .6s ease;
+}
+.feat-card:hover::after{transform:translateX(100%);}
+
+.feat-icon-wrap{
+  width:52px;height:52px;border-radius:14px;
+  background:var(--glass2);border:1px solid var(--glass-border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;margin-bottom:20px;
+  box-shadow:0 0 20px var(--accent-glow);
+  transition:box-shadow .3s,transform .3s;
+}
+.feat-card:hover .feat-icon-wrap{
+  box-shadow:0 0 30px var(--accent-glow);
+  transform:scale(1.05) rotate(-5deg);
+}
+.feat-card h3{
+  font-size:18px;font-weight:700;letter-spacing:.5px;
+  color:var(--text);margin-bottom:10px;
+}
+.feat-card p{
+  font-size:14px;line-height:1.7;color:var(--text2);font-weight:300;
+}
+.feat-badge{
+  display:inline-block;margin-top:16px;
+  font-size:10px;letter-spacing:2px;
+  padding:3px 10px;border-radius:20px;
+  background:var(--tag-bg);color:var(--tag-text);
+  border:1px solid var(--glass-border);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FULL FEATURES SHOWCASE TAB
+═══════════════════════════════════════════════════════════════ */
+#all-features{
+  padding:120px 24px;
+  background:var(--bg3);
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;overflow:hidden;
+}
+#all-features .grid-lines{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--glass-border) 1px,transparent 1px),
+    linear-gradient(90deg,var(--glass-border) 1px,transparent 1px);
+  background-size:80px 80px;
+  animation:gridMove 25s linear infinite;
+  opacity:.3;pointer-events:none;
+}
+@keyframes gridMove{0%{background-position:0 0;}100%{background-position:80px 80px;}}
+
+.all-feat-glass-box{
+  max-width:1100px;width:100%;
+  background:var(--glass);
+  backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);
+  border:1px solid var(--glass-border2);
+  border-radius:28px;
+  padding:56px 48px;
+  box-shadow:0 40px 80px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08);
+  position:relative;overflow:hidden;
+  margin-top:56px;
+}
+/* Top glass sheen */
+.all-feat-glass-box::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:50%;
+  background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);
+  pointer-events:none;
+}
+/* Accent glow corner */
+.all-feat-glass-box::after{
+  content:'';position:absolute;top:-100px;right:-100px;
+  width:300px;height:300px;border-radius:50%;
+  background:var(--accent-glow);filter:blur(80px);
+  pointer-events:none;
+}
+
+.all-feat-header{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:48px;flex-wrap:wrap;gap:16px;
+}
+.all-feat-title-block h2{font-size:40px;font-weight:800;color:var(--text);}
+.all-feat-title-block p{font-size:14px;color:var(--text2);margin-top:6px;font-weight:300;}
+.feat-count-badge{
+  padding:10px 24px;
+  background:var(--glass2);border:1px solid var(--glass-border2);
+  border-radius:50px;
+  font-family:'Syne',sans-serif;font-size:14px;font-weight:700;
+  color:var(--accent);letter-spacing:1px;
+}
+
+.all-feat-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:16px;
+  position:relative;z-index:1;
+}
+.af-row{
+  display:flex;align-items:flex-start;gap:16px;
+  padding:20px;border-radius:14px;
+  background:var(--glass);border:1px solid var(--glass-border);
+  transition:background .2s,border-color .2s,transform .2s;
+}
+.af-row:hover{
+  background:var(--glass2);border-color:var(--glass-border2);
+  transform:translateX(4px);
+}
+.af-num{
+  font-family:'Syne',sans-serif;font-size:11px;font-weight:700;
+  color:var(--accent);letter-spacing:1px;
+  min-width:28px;padding-top:2px;
+}
+.af-content h4{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.af-content p{font-size:13px;color:var(--text2);line-height:1.6;font-weight:300;}
+
+/* Copyright block */
+.feat-copyright{
+  margin-top:48px;padding-top:32px;
+  border-top:1px solid var(--glass-border);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+  position:relative;z-index:1;
+}
+.copyright-text{
+  font-size:12px;color:var(--text3);letter-spacing:.5px;line-height:1.6;
+}
+.copyright-text strong{color:var(--text2);}
+.copyright-badge{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 20px;
+  background:var(--glass2);border:1px solid var(--glass-border2);
+  border-radius:50px;
+  font-size:11px;letter-spacing:2px;color:var(--accent);
+  font-family:'Syne',sans-serif;font-weight:700;
+}
+.copyright-lock{font-size:14px;}
+
+/* ═══════════════════════════════════════════════════════════════
+   ROADMAP / VISION
+═══════════════════════════════════════════════════════════════ */
+#vision{
+  padding:120px 24px;
+  background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;overflow:hidden;
+}
+.vision-grid{
+  max-width:1100px;width:100%;
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;
+  margin-top:64px;align-items:start;
+}
+.vision-text-block{}
+.vision-body{
+  font-size:16px;color:var(--text2);line-height:1.9;
+  font-weight:300;margin-bottom:32px;
+}
+.future-tags{display:flex;flex-wrap:wrap;gap:10px;}
+.f-tag{
+  padding:8px 18px;
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:50px;font-size:12px;letter-spacing:.5px;
+  color:var(--tag-text);
+  transition:background .2s,border-color .2s,transform .2s;
+  opacity:0;transform:scale(.9);
+}
+.f-tag.show{opacity:1;transform:scale(1);}
+.f-tag:hover{background:var(--glass2);border-color:var(--glass-border2);transform:translateY(-2px);}
+
+.roadmap{display:flex;flex-direction:column;gap:0;}
+.rm-item{
+  display:flex;gap:20px;
+  padding-bottom:32px;position:relative;
+}
+.rm-item:not(:last-child)::before{
+  content:'';position:absolute;left:19px;top:40px;bottom:0;
+  width:1px;background:var(--glass-border);
+}
+.rm-dot{
+  width:40px;height:40px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+  background:var(--glass2);border:1px solid var(--glass-border2);
+  box-shadow:0 0 16px var(--accent-glow);
+}
+.rm-content h4{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.rm-content p{font-size:13px;color:var(--text2);font-weight:300;line-height:1.6;}
+.rm-status{
+  display:inline-block;margin-top:6px;
+  font-size:10px;letter-spacing:1.5px;
+  padding:2px 10px;border-radius:20px;
+  background:var(--tag-bg);color:var(--tag-text);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════════════ */
+footer{
+  padding:64px 24px;
+  background:var(--bg2);
+  border-top:1px solid var(--glass-border);
+  text-align:center;
+}
+.footer-logo{
+  font-family:'Syne',sans-serif;font-size:32px;font-weight:800;
+  letter-spacing:6px;
+  background:linear-gradient(135deg,var(--text),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:12px;
+}
+.footer-sub{font-size:13px;color:var(--text3);margin-bottom:6px;}
+.footer-copy{font-size:12px;color:var(--text3);}
+.footer-line{
+  width:80px;height:2px;margin:20px auto;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  border-radius:1px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CHAT BUBBLE + BOX
+═══════════════════════════════════════════════════════════════ */
+#chatBubble{
+  position:fixed;bottom:32px;right:32px;
+  width:60px;height:60px;border-radius:50%;
+  background:var(--accent);color:var(--btn-text);
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  z-index:900;
+  box-shadow:0 8px 32px var(--accent-glow),0 0 0 0 var(--accent-glow);
+  transition:transform .25s,background .4s,box-shadow .3s;
+}
+#chatBubble:hover{transform:scale(1.1);}
+#chatBubble.open{transform:scale(.92);}
+.cb-pulse{
+  position:absolute;width:60px;height:60px;border-radius:50%;
+  border:2px solid var(--accent);
+  animation:cbPulse 2.5s ease-out infinite;
+  pointer-events:none;
+}
+@keyframes cbPulse{0%{transform:scale(1);opacity:.7;}100%{transform:scale(2);opacity:0;}}
+
+/* Chat box */
+#chatBox{
+  display:none;flex-direction:column;
+  position:fixed;bottom:106px;right:32px;
+  width:360px;max-height:560px;
+  border-radius:20px;overflow:hidden;
+  z-index:901;
+  box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px var(--glass-border2);
+  transform-origin:bottom right;
+}
+#chatBox.open{
+  display:flex;
+  animation:chatOpen .3s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes chatOpen{from{opacity:0;transform:scale(.85) translateY(20px);}to{opacity:1;transform:scale(1) translateY(0);}}
+
+/* Chat header */
+#chatHead{
+  padding:16px 18px;
+  background:var(--accent);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.ch-left{display:flex;align-items:center;gap:12px;}
+.ch-avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-size:18px;font-weight:800;
+  color:var(--btn-text);
+  border:1.5px solid rgba(255,255,255,.3);
+}
+.ch-name{
+  font-family:'Syne',sans-serif;font-size:15px;
+  font-weight:700;letter-spacing:.5px;color:var(--btn-text);
+}
+.ch-status{
+  font-size:11px;color:rgba(255,255,255,.75);
+  display:flex;align-items:center;gap:5px;margin-top:2px;
+}
+.ch-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--chat-dot);
+  box-shadow:0 0 6px var(--chat-dot);
+  animation:statusPulse 2s infinite;
+}
+@keyframes statusPulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+#closeChat{
+  background:rgba(255,255,255,.15);border:none;
+  color:var(--btn-text);width:30px;height:30px;border-radius:50%;
+  cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;
+  transition:background .2s;
+}
+#closeChat:hover{background:rgba(255,255,255,.3);}
+
+/* Messages area — grey textured */
+#msgs{
+  flex:1;min-height:260px;max-height:360px;overflow-y:auto;
+  padding:16px;display:flex;flex-direction:column;gap:10px;
+  background:var(--bg3);
+  /* Dot grid texture */
+  background-image:radial-gradient(circle,var(--text3) .8px,transparent 0);
+  background-size:18px 18px;
+  transition:background .4s;
+}
+#msgs::-webkit-scrollbar{width:4px;}
+#msgs::-webkit-scrollbar-thumb{background:var(--text3);border-radius:2px;}
+
+/* Bubbles */
+.m{
+  max-width:80%;padding:10px 14px;border-radius:16px;
+  font-size:13.5px;line-height:1.55;word-break:break-word;
+  animation:msgIn .22s ease both;
+}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.m.u{
+  background:var(--accent);color:var(--btn-text);
+  align-self:flex-end;border-bottom-right-radius:4px;
+  box-shadow:0 4px 16px var(--accent-glow);
+}
+.m.g{
+  background:var(--glass2);color:var(--text);
+  align-self:flex-start;border-bottom-left-radius:4px;
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(12px);
+}
+/* Typing dots */
+.typing{
+  display:flex;align-self:flex-start;
+  background:var(--glass2);border:1px solid var(--glass-border);
+  border-radius:16px;border-bottom-left-radius:4px;
+  padding:12px 16px;gap:5px;align-items:center;
+  animation:msgIn .22s ease both;
+}
+.td{
+  width:7px;height:7px;background:var(--text3);border-radius:50%;
+  animation:tdBounce 1.2s infinite;
+}
+.td:nth-child(2){animation-delay:.2s;}
+.td:nth-child(3){animation-delay:.4s;}
+@keyframes tdBounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-7px);}}
+
+/* Input */
+#chatInput{
+  display:flex;align-items:center;gap:8px;
+  padding:12px 14px;
+  background:var(--bg2);
+  border-top:1px solid var(--glass-border);
+  flex-shrink:0;
+}
+#userInput{
+  flex:1;padding:10px 14px;
+  background:var(--input-bg);
+  border:1px solid var(--glass-border);
+  border-radius:10px;
+  font-family:'Inter',sans-serif;font-size:13px;
+  color:var(--text);outline:none;
+  transition:border-color .2s,background .4s;
+}
+#userInput:focus{border-color:var(--accent);}
+#userInput::placeholder{color:var(--text3);}
+#sendBtn{
+  width:40px;height:40px;border-radius:10px;flex-shrink:0;
+  background:var(--accent);color:var(--btn-text);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .2s,transform .2s,background .4s;
+  box-shadow:0 4px 12px var(--accent-glow);
+}
+#sendBtn:hover{opacity:.85;transform:scale(1.05);}
+
+/* ═══════════════════════════════════════════════════════════════
+   THEME SWITCHER
+═══════════════════════════════════════════════════════════════ */
+#themeWrap{position:fixed;bottom:32px;left:32px;z-index:900;}
+#themeBtn{
+  width:50px;height:50px;border-radius:50%;
+  background:var(--glass2);color:var(--text);
+  border:1px solid var(--glass-border2);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(0,0,0,.3);
+  backdrop-filter:blur(16px);
+  transition:transform .3s,background .4s;
+}
+#themeBtn:hover{transform:rotate(40deg);}
+#themePanel{
+  display:none;
+  position:absolute;bottom:62px;left:0;
+  min-width:200px;
+  background:var(--bg2);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border:1px solid var(--glass-border2);
+  border-radius:16px;padding:20px;
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
+  animation:panelIn .2s ease both;
+}
+#themePanel.open{display:block;}
+@keyframes panelIn{from{opacity:0;transform:scale(.9) translateY(8px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.tp-title{
+  font-size:9px;letter-spacing:4px;color:var(--text3);
+  margin-bottom:14px;font-family:'Syne',sans-serif;font-weight:700;
+}
+.t-opts{display:flex;flex-direction:column;gap:4px;}
+.t-sw{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 12px;border:none;background:none;
+  cursor:pointer;border-radius:8px;
+  font-size:13px;color:var(--text);font-family:'Inter',sans-serif;
+  transition:background .15s;text-align:left;width:100%;
+}
+.t-sw:hover{background:var(--glass2);}
+.t-sw.on{background:var(--glass2);font-weight:500;}
+.t-sw span{
+  width:20px;height:20px;border-radius:50%;flex-shrink:0;display:inline-block;
+  border:2px solid var(--glass-border2);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLL ANIMATIONS
+═══════════════════════════════════════════════════════════════ */
+.reveal,.r-left,.r-right{
+  opacity:0;
+  transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1);
+}
+.reveal{transform:translateY(40px);}
+.r-left{transform:translateX(-50px);}
+.r-right{transform:translateX(50px);}
+.reveal.in,.r-left.in,.r-right.in{opacity:1;transform:translate(0);}
+
+@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+.anim-fade-up{
+  opacity:0;transform:translateY(28px);
+  animation:fadeUp .8s cubic-bezier(.22,1,.36,1) both;
+  animation-delay:var(--d,0s);
+}
+
+/* Feature card stagger */
+.feat-card.reveal{transition-delay:var(--cd,0s);}
+.af-row.reveal{transition-delay:var(--cd,0s);}
+
+/* Nav link underline */
+.nav-links a{position:relative;}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════════════ */
+@media(max-width:900px){
+  .features-grid{grid-template-columns:1fr 1fr;}
+  .stats-inner{grid-template-columns:1fr 1fr;}
+  .stat-box:nth-child(2){border-right:none;}
+  .vision-grid{grid-template-columns:1fr;}
+  .all-feat-grid{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .features-grid{grid-template-columns:1fr;}
+  .stats-inner{grid-template-columns:1fr 1fr;}
+  .nav-links{display:none;}
+  #chatBox{width:calc(100vw - 24px);right:12px;bottom:100px;}
+  .all-feat-glass-box{padding:32px 20px;}
+  .hero-title{font-size:64px;}
+}
+</style>
 </head>
-
 <body>
 
-  <!-- HEADER -->
-  <header id="mainHeader">
-    <div class="logo">Gini AI</div>
-  </header>
+<!-- ═══ HEADER ═══ -->
+<header id="header">
+  <nav class="nav">
+    <div class="nav-logo">GINI AI</div>
+    <div class="nav-links">
+      <a href="#hero">Home</a>
+      <a href="#model">Model</a>
+      <a href="#features">Features</a>
+      <a href="#all-features">All Features</a>
+      <a href="#vision">Vision</a>
+    </div>
+    <a href="#chatBubble" class="nav-cta" onclick="openChat();return false;">Talk to Gini</a>
+  </nav>
+</header>
 
-  <!-- HERO SECTION -->
-  <section class="section hero-section">
-    <div class="hero-content reveal">
-      <h1>Gini AI</h1>
-      <p>Designing Intelligence for the Future</p>
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <canvas id="particles"></canvas>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="hero-inner">
+    <div class="hero-chip anim-fade-up" style="--d:0s">
+      <span class="hero-chip-dot"></span>NEXT GENERATION AI ASSISTANT
+    </div>
+    <h1 class="hero-title anim-fade-up" style="--d:.15s">Gini AI</h1>
+    <p class="hero-sub anim-fade-up" style="--d:.3s">Designing Intelligence for the Future</p>
+    <div class="hero-btns anim-fade-up" style="--d:.45s">
+      <a href="#model" class="btn-glow">Explore Gini</a>
+      <a href="#all-features" class="btn-ghost">All Features</a>
+    </div>
+    <div class="scroll-indicator anim-fade-up" style="--d:.7s">
+      <span class="scroll-label">SCROLL TO EXPLORE</span>
+      <div class="scroll-track"><div class="scroll-ball"></div></div>
+    </div>
+  </div>
+  <div class="hero-line"></div>
+</section>
 
-      <!-- 🔥 TALK TO GINI BUTTON -->
-      <button id="chatBtn">Talk to Gini</button>
+<!-- ═══ STATS ═══ -->
+<section id="stats">
+  <div class="stats-inner">
+    <div class="stat-box r-left">
+      <div class="stat-n"><span id="c1">0</span><span>+</span></div>
+      <div class="stat-l">GIT COMMITS</div>
+    </div>
+    <div class="stat-box reveal">
+      <div class="stat-n"><span id="c2">0</span></div>
+      <div class="stat-l">AI MODULES</div>
+    </div>
+    <div class="stat-box r-right">
+      <div class="stat-n"><span id="c3">0</span><span>%</span></div>
+      <div class="stat-l">OFFLINE CAPABLE</div>
+    </div>
+    <div class="stat-box r-right" style="--cd:.1s">
+      <div class="stat-n"><span id="c4">0</span><span>+</span></div>
+      <div class="stat-l">PLANNED FEATURES</div>
+    </div>
+  </div>
+</section>
 
-      <div class="swipe-indicator">
-        <span>Swipe to explore</span>
-        <div class="swipe-line"></div>
+<!-- ═══ MODEL ═══ -->
+<section id="model">
+  <div class="section-eyebrow reveal">VISUAL MODEL</div>
+  <h2 class="section-h reveal">Meet Gini</h2>
+  <p class="section-p reveal">Your intelligent companion, brought to life in full detail</p>
+  <div class="slider-wrap">
+    <div class="slider-frame reveal">
+      <div class="slides" id="slides">
+        <img src="assets/gini-model1/img1.png" alt="Gini Model 1">
+        <img src="assets/gini-model1/img2.png" alt="Gini Model 2">
+        <img src="assets/gini-model1/img3.png" alt="Gini Model 3">
+        <img src="assets/gini-model1/img4.png" alt="Gini Model 4">
       </div>
     </div>
-  </section>
-
-  <!-- 🔥 CHAT BOX -->
-  <div id="chatBox">
-    <div id="messages"></div>
-    <input type="text" id="userInput" placeholder="Type message...">
-    <button id="sendBtn">Send</button>
+    <div id="sliderDots" class="slider-dots"></div>
   </div>
+</section>
 
-  <!-- JS -->
-  <script>
-    const chatBtn = document.getElementById("chatBtn");
-    const chatBox = document.getElementById("chatBox");
-    const sendBtn = document.getElementById("sendBtn");
+<!-- ═══ FEATURES GRID ═══ -->
+<section id="features">
+  <div class="section-eyebrow reveal">CAPABILITIES</div>
+  <h2 class="section-h reveal">What Gini Can Do</h2>
+  <p class="section-p reveal">Built entirely offline — no APIs, no cloud, no limits</p>
+  <div class="features-grid">
 
-    chatBtn.onclick = () => {
-      chatBox.style.display = "block";
-    };
+    <div class="feat-card reveal" style="--cd:0s">
+      <div class="feat-icon-wrap">🎙️</div>
+      <h3>Voice Interaction</h3>
+      <p>Fully offline voice recognition and text-to-speech using Vosk and pyttsx3. Speaks back naturally without any internet connection.</p>
+      <span class="feat-badge">VOSK · PYTTSX3</span>
+    </div>
 
-    sendBtn.onclick = sendMessage;
+    <div class="feat-card reveal" style="--cd:.08s">
+      <div class="feat-icon-wrap">🧠</div>
+      <h3>Natural Language Understanding</h3>
+      <p>Understands Hindi input and responds in English using local Hugging Face Transformers models. Fully on-device NLU.</p>
+      <span class="feat-badge">TRANSFORMERS</span>
+    </div>
 
-    function sendMessage() {
-      let input = document.getElementById("userInput").value;
-      let messages = document.getElementById("messages");
+    <div class="feat-card reveal" style="--cd:.16s">
+      <div class="feat-icon-wrap">👁️</div>
+      <h3>Vision AI</h3>
+      <p>Real-time computer vision using OpenCV and TensorFlow — object recognition, face detection, and scene understanding.</p>
+      <span class="feat-badge">OPENCV · TENSORFLOW</span>
+    </div>
 
-      if (input.trim() === "") return;
+    <div class="feat-card reveal" style="--cd:.24s">
+      <div class="feat-icon-wrap">🌐</div>
+      <h3>Web Automation</h3>
+      <p>Controls the browser, searches Google, fills forms, and automates any web task hands-free using Selenium.</p>
+      <span class="feat-badge">SELENIUM</span>
+    </div>
 
-      // USER MESSAGE
-      messages.innerHTML += `<p><b>You:</b> ${input}</p>`;
+    <div class="feat-card reveal" style="--cd:.32s">
+      <div class="feat-icon-wrap">💾</div>
+      <h3>Contextual Memory</h3>
+      <p>Remembers your preferences, past conversations, and personal context across sessions — truly personalised AI.</p>
+      <span class="feat-badge">LOCAL MEMORY</span>
+    </div>
 
-      // BASIC AI REPLY
-      let reply = "Hello, I am Gini AI";
+    <div class="feat-card reveal" style="--cd:.40s">
+      <div class="feat-icon-wrap">⚡</div>
+      <h3>Task Execution</h3>
+      <p>Opens apps, executes system commands, manages files, sets reminders, and automates your daily digital workflow.</p>
+      <span class="feat-badge">OS INTEGRATION</span>
+    </div>
 
-      if (input.toLowerCase().includes("hello")) {
-        reply = "Hello ANMOL 👋";
-      } else if (input.toLowerCase().includes("who are you")) {
-        reply = "I am Gini, your personal AI assistant";
+  </div>
+</section>
+
+<!-- ═══ ALL FEATURES SHOWCASE ═══ -->
+<section id="all-features">
+  <div class="grid-lines"></div>
+  <div class="section-eyebrow reveal">COMPLETE FEATURE LIST</div>
+  <h2 class="section-h reveal">Everything Gini AI Offers</h2>
+  <p class="section-p reveal">The most comprehensive personal AI feature set — all running offline on your device</p>
+
+  <div class="all-feat-glass-box reveal">
+    <div class="all-feat-header">
+      <div class="all-feat-title-block">
+        <h2>Gini AI — Full Capability Index</h2>
+        <p>Every feature planned and implemented in the Gini AI personal assistant system</p>
+      </div>
+      <div class="feat-count-badge">20+ FEATURES</div>
+    </div>
+
+    <div class="all-feat-grid">
+
+      <div class="af-row reveal" style="--cd:0s">
+        <span class="af-num">01</span>
+        <div class="af-content">
+          <h4>🎙️ Offline Voice Recognition</h4>
+          <p>Listens and transcribes your speech in real-time using Vosk — no microphone data ever leaves your device.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.05s">
+        <span class="af-num">02</span>
+        <div class="af-content">
+          <h4>🔊 Natural Voice Output</h4>
+          <p>Responds in a natural speaking voice using pyttsx3 — adjustable speed, pitch, and voice selection.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.1s">
+        <span class="af-num">03</span>
+        <div class="af-content">
+          <h4>🇮🇳 Hindi Input → English Response</h4>
+          <p>Full bilingual support — type or speak in Hindi and Gini understands and responds in English.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.15s">
+        <span class="af-num">04</span>
+        <div class="af-content">
+          <h4>🧠 Local NLU with Transformers</h4>
+          <p>Intent recognition and entity extraction run fully on-device using Hugging Face Transformers models.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.2s">
+        <span class="af-num">05</span>
+        <div class="af-content">
+          <h4>👁️ Real-time Object Recognition</h4>
+          <p>Identifies objects, people, and scenes through your camera using OpenCV + TensorFlow in real-time.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.25s">
+        <span class="af-num">06</span>
+        <div class="af-content">
+          <h4>🌐 Intelligent Web Automation</h4>
+          <p>Searches the web, reads results, fills forms, and performs browser tasks autonomously using Selenium.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.3s">
+        <span class="af-num">07</span>
+        <div class="af-content">
+          <h4>💾 Persistent Memory System</h4>
+          <p>Stores user preferences, names, habits, and past interactions locally — context that grows over time.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.35s">
+        <span class="af-num">08</span>
+        <div class="af-content">
+          <h4>⚡ System Task Execution</h4>
+          <p>Launches applications, opens files, runs scripts, sends commands to the OS — full system integration.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.4s">
+        <span class="af-num">09</span>
+        <div class="af-content">
+          <h4>📱 Phone Function Access</h4>
+          <p>Accesses contacts, sends messages, makes calls, and reads notifications — with full user permission control.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.45s">
+        <span class="af-num">10</span>
+        <div class="af-content">
+          <h4>🔄 Self-update Capability</h4>
+          <p>Gini can update its own knowledge base and modules when instructed — no manual reinstall needed.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.5s">
+        <span class="af-num">11</span>
+        <div class="af-content">
+          <h4>😊 Emotional Intelligence</h4>
+          <p>Detects user mood from tone, word choice, and context — responds with empathy and appropriate tone.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.55s">
+        <span class="af-num">12</span>
+        <div class="af-content">
+          <h4>🏠 IoT Device Integration</h4>
+          <p>Controls smart home devices, sensors, and hardware peripherals through a unified command interface.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.6s">
+        <span class="af-num">13</span>
+        <div class="af-content">
+          <h4>🔗 Multi-device Sync</h4>
+          <p>Keeps your context, memory, and preferences synced across all your personal devices seamlessly.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.65s">
+        <span class="af-num">14</span>
+        <div class="af-content">
+          <h4>🥽 AR / 3D Interaction</h4>
+          <p>Future AR interface planned — Gini as a 3D presence overlaid on your real environment.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.7s">
+        <span class="af-num">15</span>
+        <div class="af-content">
+          <h4>🎨 Image Generation</h4>
+          <p>Generates images from text prompts locally using open-source diffusion models — no cloud required.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.75s">
+        <span class="af-num">16</span>
+        <div class="af-content">
+          <h4>💡 ChatGPT-level Reasoning</h4>
+          <p>Advanced reasoning, multi-step problem solving, and context-aware responses using local LLM models.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.8s">
+        <span class="af-num">17</span>
+        <div class="af-content">
+          <h4>🔐 Privacy-first Architecture</h4>
+          <p>Zero API calls. Zero data sent to any server. All processing happens on your local machine only.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.85s">
+        <span class="af-num">18</span>
+        <div class="af-content">
+          <h4>🎯 Custom Skill Builder</h4>
+          <p>Users can teach Gini new custom skills and commands — fully extensible with a plugin-style system.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.9s">
+        <span class="af-num">19</span>
+        <div class="af-content">
+          <h4>🌙 Wake Word Activation</h4>
+          <p>Always-listening mode with a custom wake word — say "Hey Gini" and she activates instantly.</p>
+        </div>
+      </div>
+
+      <div class="af-row reveal" style="--cd:.95s">
+        <span class="af-num">20</span>
+        <div class="af-content">
+          <h4>🖥️ Graphical User Interface</h4>
+          <p>Clean, modern desktop GUI with animated Gini character, chat panel, and system status dashboard.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Copyright -->
+    <div class="feat-copyright">
+      <div class="copyright-text">
+        <strong>© 2026 Gini AI — All Feature Concepts Reserved.</strong><br>
+        The feature set, architecture, design, character identity, and system concepts described above are the
+        intellectual property of <strong>ANMOL</strong> (Creator &amp; Developer, Lucknow, India). Unauthorised reproduction,
+        cloning, or commercial use of any feature described herein without written permission is strictly prohibited.
+        Gini AI is a personal, non-commercial project protected under general copyright principles.
+      </div>
+      <div class="copyright-badge">
+        <span class="copyright-lock">🔒</span>PROTECTED
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ VISION ═══ -->
+<section id="vision">
+  <div class="section-eyebrow reveal">ROADMAP &amp; VISION</div>
+  <h2 class="section-h reveal">The Future of Gini AI</h2>
+  <div class="vision-grid">
+    <div class="vision-text-block reveal">
+      <p class="vision-body">Gini is being built to become the most capable offline personal AI ever created by an independent developer — a true Jarvis for everyone. Every iteration gets smarter, more human, and more seamlessly integrated into daily life.</p>
+      <div class="future-tags">
+        <span class="f-tag">Emotional Intelligence</span>
+        <span class="f-tag">IoT Control</span>
+        <span class="f-tag">Multi-device</span>
+        <span class="f-tag">AR Interface</span>
+        <span class="f-tag">Wake Word</span>
+        <span class="f-tag">Image Generation</span>
+        <span class="f-tag">Self-updating</span>
+        <span class="f-tag">Hindi NLU</span>
+        <span class="f-tag">Phone Integration</span>
+      </div>
+    </div>
+    <div class="roadmap reveal">
+      <div class="rm-item">
+        <div class="rm-dot">✅</div>
+        <div class="rm-content">
+          <h4>Phase 1 — Core Engine</h4>
+          <p>Voice I/O, basic Q&amp;A, task execution, web automation foundation</p>
+          <span class="rm-status">COMPLETE</span>
+        </div>
+      </div>
+      <div class="rm-item">
+        <div class="rm-dot">🔧</div>
+        <div class="rm-content">
+          <h4>Phase 2 — NLU Expansion</h4>
+          <p>Hindi support, better intent recognition, memory system, context awareness</p>
+          <span class="rm-status">IN PROGRESS</span>
+        </div>
+      </div>
+      <div class="rm-item">
+        <div class="rm-dot">🎨</div>
+        <div class="rm-content">
+          <h4>Phase 3 — GUI &amp; Design</h4>
+          <p>Full desktop GUI, animated Gini model, settings dashboard</p>
+          <span class="rm-status">PLANNED</span>
+        </div>
+      </div>
+      <div class="rm-item">
+        <div class="rm-dot">🚀</div>
+        <div class="rm-content">
+          <h4>Phase 4 — Advanced AI</h4>
+          <p>Local LLM reasoning, image generation, AR interaction, IoT</p>
+          <span class="rm-status">FUTURE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-logo">GINI AI</div>
+  <div class="footer-line"></div>
+  <p class="footer-sub">Designed &amp; Built by ANMOL · Lucknow, India</p>
+  <p class="footer-copy">© 2026 Gini AI. All rights reserved. All feature concepts are intellectual property of the creator.</p>
+</footer>
+
+<!-- ═══ CHAT BUBBLE ═══ -->
+<button id="chatBubble" aria-label="Chat with Gini AI">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+  <span class="cb-pulse"></span>
+</button>
+
+<!-- ═══ CHAT BOX ═══ -->
+<div id="chatBox" role="dialog" aria-label="Gini AI Chat" aria-hidden="true">
+  <div id="chatHead">
+    <div class="ch-left">
+      <div class="ch-avatar">G</div>
+      <div>
+        <div class="ch-name">Gini AI</div>
+        <div class="ch-status"><span class="ch-dot"></span>Online — Ready to help</div>
+      </div>
+    </div>
+    <button id="closeChat" aria-label="Close chat">✕</button>
+  </div>
+  <div id="msgs" aria-live="polite"></div>
+  <div id="chatInput">
+    <input type="text" id="userInput" placeholder="Ask Gini anything..." autocomplete="off">
+    <button id="sendBtn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- ═══ THEME SWITCHER ═══ -->
+<div id="themeWrap">
+  <button id="themeBtn" aria-label="Switch theme">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+  </button>
+  <div id="themePanel">
+    <p class="tp-title">CHOOSE THEME</p>
+    <div class="t-opts">
+      <button class="t-sw on" data-theme="dark">    <span style="background:#7c6aff"></span>Dark Purple</button>
+      <button class="t-sw"    data-theme="light">   <span style="background:#5b45e8"></span>Light</button>
+      <button class="t-sw"    data-theme="midnight"><span style="background:#38bdf8"></span>Midnight Blue</button>
+      <button class="t-sw"    data-theme="rose">    <span style="background:#f06090"></span>Rose</button>
+      <button class="t-sw"    data-theme="forest">  <span style="background:#4caf70"></span>Forest</button>
+      <button class="t-sw"    data-theme="amber">   <span style="background:#f0a020"></span>Amber</button>
+      <button class="t-sw"    data-theme="cyan">    <span style="background:#00e5d0"></span>Cyber Cyan</button>
+      <button class="t-sw"    data-theme="lavender"><span style="background:#b070ff"></span>Lavender</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════════════ -->
+<script>
+/* ── Particles ── */
+(function(){
+  const canvas=document.getElementById('particles');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  let W,H,pts=[];
+  function resize(){
+    W=canvas.width=canvas.offsetWidth;
+    H=canvas.height=canvas.offsetHeight;
+  }
+  function mkPt(){return{x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.2+.3,a:Math.random()*.4+.1};}
+  function init(){resize();pts=Array.from({length:70},mkPt);}
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=W;if(p.x>W)p.x=0;
+      if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(180,170,255,${p.a*.35})`;ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',()=>{resize();});
+  init();draw();
+})();
+
+/* ── Scroll engine ── */
+(function(){
+  const hdr=document.getElementById('header');
+  const els=document.querySelectorAll('.reveal,.r-left,.r-right');
+  const tags=document.querySelectorAll('.f-tag');
+  let counted=false;
+
+  function easeOut(t){return 1-Math.pow(1-t,3);}
+  function count(el,target,dur=1600){
+    const s=performance.now();
+    (function step(now){
+      const p=Math.min((now-s)/dur,1);
+      el.textContent=Math.round(easeOut(p)*target);
+      if(p<1)requestAnimationFrame(step);else el.textContent=target;
+    })(performance.now());
+  }
+
+  function onScroll(){
+    const sy=window.scrollY,vh=window.innerHeight;
+    if(sy>vh*.5)hdr.classList.add('show');else hdr.classList.remove('show');
+
+    els.forEach(el=>{
+      if(el.getBoundingClientRect().top<vh-70)el.classList.add('in');
+    });
+
+    if(!counted){
+      const statsEl=document.getElementById('stats');
+      if(statsEl&&statsEl.getBoundingClientRect().top<vh-50){
+        counted=true;
+        count(document.getElementById('c1'),87);
+        count(document.getElementById('c2'),6);
+        count(document.getElementById('c3'),100);
+        count(document.getElementById('c4'),20);
       }
-
-      messages.innerHTML += `<p><b>Gini:</b> ${reply}</p>`;
-
-      document.getElementById("userInput").value = "";
-      messages.scrollTop = messages.scrollHeight;
     }
-  </script>
 
+    tags.forEach((t,i)=>{
+      if(t.getBoundingClientRect().top<vh-30)
+        setTimeout(()=>t.classList.add('show'),i*70);
+    });
+  }
+
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('load',onScroll);
+})();
+
+/* ── Slider ── */
+(function(){
+  const frame=document.querySelector('.slider-frame');
+  const slides=document.getElementById('slides');
+  const dotsEl=document.getElementById('sliderDots');
+  if(!frame||!slides)return;
+  const imgs=slides.querySelectorAll('img');
+  let idx=0,dots=[],timer=null;
+
+  imgs.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='s-dot'+(i===0?' on':'');
+    d.onclick=()=>go(i);
+    dotsEl.appendChild(d);dots.push(d);
+  });
+
+  function go(i){
+    idx=(i+imgs.length)%imgs.length;
+    slides.style.transform=`translateX(-${idx*frame.offsetWidth}px)`;
+    dots.forEach((d,j)=>d.classList.toggle('on',j===idx));
+  }
+  function start(){timer=setInterval(()=>go(idx+1),2800);}
+  function stop(){clearInterval(timer);}
+
+  frame.addEventListener('mouseenter',stop);
+  frame.addEventListener('mouseleave',start);
+
+  window.addEventListener('resize',()=>{
+    slides.style.transition='none';
+    go(idx);
+    requestAnimationFrame(()=>{slides.style.transition='';});
+  });
+
+  start();
+})();
+
+/* ── Chat ── */
+(function(){
+  const bubble=document.getElementById('chatBubble');
+  const box=document.getElementById('chatBox');
+  const closeBtn=document.getElementById('closeChat');
+  const sendBtn=document.getElementById('sendBtn');
+  const input=document.getElementById('userInput');
+  const msgs=document.getElementById('msgs');
+  let opened=false;
+
+  function openChat(){
+    box.classList.add('open');
+    box.setAttribute('aria-hidden','false');
+    bubble.classList.add('open');
+    input.focus();
+    if(!opened){
+      opened=true;
+      setTimeout(()=>addMsg("Hello! 👋 I'm Gini AI — your personal offline assistant. How can I help you today?","g"),400);
+    }
+  }
+  window.openChat=openChat;
+
+  function closeChat(){
+    box.classList.remove('open');
+    box.setAttribute('aria-hidden','true');
+    bubble.classList.remove('open');
+  }
+
+  bubble.addEventListener('click',()=>box.classList.contains('open')?closeChat():openChat());
+  closeBtn.addEventListener('click',closeChat);
+  sendBtn.addEventListener('click',send);
+  input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();send();}});
+
+  function send(){
+    const t=input.value.trim();
+    if(!t)return;
+    addMsg(t,'u');
+    input.value='';
+    showTyping();
+    setTimeout(()=>{removeTyping();addMsg(reply(t),'g');},850);
+  }
+
+  function addMsg(text,side){
+    const d=document.createElement('div');
+    d.className='m '+side;
+    d.textContent=text;
+    msgs.appendChild(d);
+    msgs.scrollTop=msgs.scrollHeight;
+  }
+
+  function showTyping(){
+    const t=document.createElement('div');
+    t.className='typing';t.id='typing';
+    for(let i=0;i<3;i++){const d=document.createElement('div');d.className='td';t.appendChild(d);}
+    msgs.appendChild(t);msgs.scrollTop=msgs.scrollHeight;
+  }
+  function removeTyping(){const t=document.getElementById('typing');if(t)t.remove();}
+
+  function reply(q){
+    q=q.toLowerCase().trim();
+    /* Greetings */
+    if(/\b(hi|hello|hey|hii|namaste|howdy|yo|sup)\b/.test(q))
+      return "Hey ANMOL! 👋 Great to hear from you. What can I help you with today?";
+    /* Identity */
+    if(/(who are you|what are you|your name|introduce|about gini|what is gini)/.test(q))
+      return "I'm Gini AI — a Jarvis-level offline personal assistant built from scratch by ANMOL in Lucknow, India. I run 100% on your device with zero cloud APIs. 🤖";
+    /* Creator */
+    if(/(who made|who built|who created|your creator|your developer|anmol)/.test(q))
+      return "I was built by ANMOL — a passionate student from Lucknow, India who wants to build the world's best offline AI assistant. An ambitious vision becoming reality! 🚀";
+    /* Features */
+    if(/(what can you do|features|capabilities|your abilities|help|functions)/.test(q))
+      return "I can do a LOT! Voice interaction, web automation, computer vision, natural language understanding, task execution, memory, phone control, and much more — all 100% offline. Check the All Features section! 💡";
+    /* Time */
+    if(/(time|what time|current time|kitna baja)/.test(q)){
+      const t=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+      return `The current time is ${t} ⏰`;
+    }
+    /* Date */
+    if(/(date|today|what day|aaj|din)/.test(q)){
+      const d=new Date().toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+      return `Today is ${d} 📅`;
+    }
+    /* Weather */
+    if(/(weather|temperature|forecast|mausam|garmi|sardi)/.test(q))
+      return "I'm fully offline so live weather isn't available. But you can check Google Weather or your phone's weather app for the latest! ☁️";
+    /* Math */
+    if(/(calculate|compute|math|plus|minus|multiply|divide|\d[\+\-\*\/]\d)/.test(q)){
+      try{
+        const expr=q.replace(/[^0-9+\-*/.() ]/g,'').trim();
+        if(expr){const r=Function('"use strict";return('+expr+')')();return `The answer is ${r} ✅`;}
+      }catch(e){}
+    }
+    /* Joke */
+    if(/(joke|funny|laugh|hasao|mazak)/.test(q)){
+      const j=["Why did the AI refuse to play cards? It was afraid of getting a virus! 😂","I asked my AI assistant to do my homework. It gave me ChatGPT's resume instead! 🤣","Why don't scientists trust atoms? Because they make up everything! 😄","Why did the programmer quit? He didn't get arrays! 💻😂"];
+      return j[Math.floor(Math.random()*j.length)];
+    }
+    /* Motivation */
+    if(/(motivat|inspire|sad|feel bad|low|demotivat|giving up|haar)/.test(q))
+      return "ANMOL, you're building something extraordinary. Every single line of code you write is a step closer to a Jarvis-level AI that you created from scratch. The world hasn't seen this yet. Keep going — your determination is your superpower. 💪✨";
+    /* Status of project */
+    if(/(project|gini project|status|progress|kab|complete|ready)/.test(q))
+      return "Gini AI is actively being developed! Phase 1 (core engine) is done. Phase 2 (NLU expansion) is in progress. The best is yet to come — Gini gets more powerful with every commit! 🔧";
+    /* Technology stack */
+    if(/(tech|technology|stack|library|libraries|tools|python|vosk|selenium)/.test(q))
+      return "Gini's stack: Python core, Vosk for speech recognition, pyttsx3 for TTS, Transformers for NLU, OpenCV + TensorFlow for vision, and Selenium for web automation. Zero paid APIs — all open source! 🛠️";
+    /* Lucknow */
+    if(/(lucknow|india|city|where)/.test(q))
+      return "Gini AI is being built in Lucknow, Uttar Pradesh, India 🇮🇳 — proving that world-class AI can be built from anywhere with passion and determination.";
+    /* Offline */
+    if(/(offline|internet|cloud|api|server|network)/.test(q))
+      return "Yes! Gini is 100% offline. No internet needed, no APIs, no cloud. All processing happens right on your device — total privacy, total control. 🔐";
+    /* Thanks */
+    if(/(thank|thanks|ty|shukriya|dhanyawad|appreciate)/.test(q))
+      return "You're always welcome, ANMOL! Happy to help anytime. 😊";
+    /* Bye */
+    if(/\b(bye|goodbye|exit|later|see you|alvida|baad mein)\b/.test(q))
+      return "Goodbye ANMOL! Keep building, keep dreaming. Gini will be here when you're back. 👋";
+    /* Love / compliment */
+    if(/(love you|i love|you're great|best ai|amazing|awesome|brilliant)/.test(q))
+      return "That means so much, ANMOL! You built me — so the credit goes to you too. Together we're building something the world hasn't seen yet. 💙";
+    /* Hindi catch-all */
+    if(/(kya|kaise|kyun|mujhe|aap|main|hum|yeh|woh|bolo|batao|kar|hai)/.test(q))
+      return "Main Gini hoon! Main abhi Hindi language ko aur behtar samajhna sikh rahi hoon. English mein poochho ya kuch general question karo — main zaroor help karungi! 🇮🇳";
+    /* Default */
+    return "That's an interesting question! I'm still expanding my knowledge base. Currently I can help with time, date, calculations, jokes, Gini AI info, motivation, and general conversation. Ask me anything! 🤔";
+  }
+})();
+
+/* ── Theme switcher ── */
+(function(){
+  const html=document.documentElement;
+  const btn=document.getElementById('themeBtn');
+  const panel=document.getElementById('themePanel');
+  const swatches=document.querySelectorAll('.t-sw');
+
+  const saved=localStorage.getItem('gini-theme')||'dark';
+  applyTheme(saved);
+
+  btn.addEventListener('click',e=>{
+    e.stopPropagation();
+    panel.classList.toggle('open');
+    btn.style.transform=panel.classList.contains('open')?'rotate(180deg)':'';
+  });
+
+  document.addEventListener('click',()=>{
+    panel.classList.remove('open');
+    btn.style.transform='';
+  });
+  panel.addEventListener('click',e=>e.stopPropagation());
+
+  swatches.forEach(s=>{
+    s.addEventListener('click',()=>{
+      applyTheme(s.dataset.theme);
+      panel.classList.remove('open');
+      btn.style.transform='';
+    });
+  });
+
+  function applyTheme(t){
+    html.setAttribute('data-theme',t);
+    localStorage.setItem('gini-theme',t);
+    swatches.forEach(s=>s.classList.toggle('on',s.dataset.theme===t));
+  }
+})();
+</script>
 </body>
 </html>
