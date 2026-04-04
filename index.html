@@ -2,13 +2,19 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover">
 <title>Gini AI — Designing Intelligence for the Future</title>
-<meta name="description" content="Gini AI — A Jarvis-level offline personal AI assistant built by ANMOL.">
+<meta name="description" content="Gini AI — A AI [ANMOL INTELLIGENCE] offline personal AI assistant built by ANMOL.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+html{-webkit-text-size-adjust:100%;}
+button,a{touch-action:manipulation;}
+input,textarea{font-size:16px;}
+body{padding-bottom:env(safe-area-inset-bottom);}
+#chatBubble{bottom:calc(32px + env(safe-area-inset-bottom));right:calc(32px + env(safe-area-inset-right));}
+#themeWrap{bottom:calc(32px + env(safe-area-inset-bottom));left:calc(32px + env(safe-area-inset-left));}
 /* ═══════════════════════════════════════════════════════════════
    THEME VARIABLES
 ═══════════════════════════════════════════════════════════════ */
@@ -725,6 +731,17 @@ footer{
   .all-feat-glass-box{padding:32px 20px;}
   .hero-title{font-size:64px;}
 }
+@media (hover:none){
+  .btn-glow:hover,.btn-ghost:hover,#chatBubble:hover{transform:none;}
+}
+@media(max-width:768px){
+  .hero-inner{padding:0 10px;}
+  .btn-glow,.btn-ghost{padding:12px 24px;font-size:12px;}
+}
+@media(max-width:480px){
+  .hero-title{font-size:48px;}
+  #chatBox{width:calc(100vw - 16px);right:8px;}
+}
 </style>
 </head>
 <body>
@@ -1227,6 +1244,15 @@ footer{
     swatches.forEach(s=>s.classList.toggle('on',s.dataset.theme===t));
   }
 })();
+window.addEventListener('resize',()=>{
+  document.body.style.height = window.innerHeight + 'px';
+});
+
+function setVH(){
+  document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+}
+setVH();
+window.addEventListener('resize',setVH);
 </script>
 </body>
 </html>
