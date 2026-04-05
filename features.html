@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Gini AI Features & Vision — Full capabilities overview and future roadmap.">
+  <title>Gini AI — Features &amp; Vision</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles/themes.css">
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/components.css">
+</head>
+<body>
+
+  <!-- ═══ SCROLL PROGRESS ═══ -->
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════
+       HEADER (always visible on features page)
+  ════════════════════════════════════ -->
+  <header id="header" class="always-show" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html" class="nav-logo" aria-label="Gini AI — Home">GINI AI</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#model">Model</a>
+        <a href="#features-main" class="active">Features</a>
+        <a href="#vision">Vision</a>
+      </div>
+      <a href="index.html" class="nav-cta">← Back to App</a>
+    </nav>
+  </header>
+
+  <!-- ═══════════════════════════════════
+       PAGE HEADER
+  ════════════════════════════════════ -->
+  <div class="page-header" role="banner" aria-label="Features and Vision">
+    <div class="ph-orb ph-orb-1" aria-hidden="true"></div>
+    <div class="ph-orb ph-orb-2" aria-hidden="true"></div>
+    <div class="page-eyebrow">
+      <span class="page-eyebrow-dot" aria-hidden="true"></span>
+      CAPABILITIES &amp; ROADMAP
+    </div>
+    <h1 class="page-title">Features &amp; Vision</h1>
+    <p class="page-sub">Everything Gini AI can do today — and everything it's being built to become.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       FEATURES GRID
+  ════════════════════════════════════ -->
+  <section id="features-main" aria-label="Core features">
+    <div class="features-container">
+      <div class="features-top">
+        <div class="section-eyebrow">CORE CAPABILITIES</div>
+        <h2 class="section-h">What Gini Can Do</h2>
+        <p class="section-p">Designed from scratch. Zero APIs. Full offline power.</p>
+      </div>
+      <div class="features-grid" role="list">
+
+        <article class="feat-card" role="listitem">
+          <div class="feat-icon" aria-hidden="true">🎙️</div>
+          <h3 class="feat-title">Voice Recognition</h3>
+          <p class="feat-desc">Real-time offline speech recognition powered by Vosk. No internet, no cloud, no latency from external calls.</p>
+        </article>
+
+        <article class="feat-card" role="listitem">
+          <div class="feat-icon" aria-hidden="true">🔊</div>
+          <h3 class="feat-title">Text to Speech</h3>
+          <p class="feat-desc">Natural voice output via pyttsx3. Gini responds aloud with configurable speed, pitch, and voice profiles.</p>
+        </article>
+
+        <article class="feat-card" role="listitem">
+          <div class="feat-icon" aria-hidden="true">🧠</div>
+          <h3 class="feat-title">Natural Language Understanding</h3>
+          <p class="feat-desc">Intent classification and entity recognition using HuggingFace Transformers — fully local inference.</p>
+        </article>
+
+        <article class="feat-card" role="listitem">
+          <div class="feat-icon" aria-hidden="true">🌐</div>
+          <h3 class="feat-title">Web Automation</h3>
+          <p class="feat-desc">Selenium-powered browser control. Gini can search, navigate, fill forms, and extract data automatically.</p>
+        </article>
+
+        <article class="feat-card" role="listitem">
+          <div class="feat-icon" aria-hidden="true">👁️</div>
+          <h3 class="feat-title">Computer Vision</h3>
+          <p class="feat-desc">OpenCV and TensorFlow for visual input processing — screen analysis, object detection, and more.</p>
+        </article>
+
+        <article class="feat-card" role="listitem">
+          <div class="feat-icon" aria-hidden="true">⚙️</div>
+          <h3 class="feat-title">Task Execution</h3>
+          <p class="feat-desc">Open apps, control files, set reminders, manage system tasks — all through natural voice or text commands.</p>
+        </article>
+
+        <article class="feat-card" role="listitem">
+          <div class="feat-icon" aria-hidden="true">💾</div>
+          <h3 class="feat-title">Local Memory</h3>
+          <p class="feat-desc">Gini remembers your preferences, context, and interaction history — stored privately on your device only.</p>
+        </article>
+
+        <article class="feat-card" role="listitem">
+          <div class="feat-icon" aria-hidden="true">🇮🇳</div>
+          <h3 class="feat-title">Hindi Input Support</h3>
+          <p class="feat-desc">Gini understands Hindi queries and mixed-language input, responding intelligently in English.</p>
+        </article>
+
+        <article class="feat-card" role="listitem">
+          <div class="feat-icon" aria-hidden="true">📱</div>
+          <h3 class="feat-title">Phone Integration</h3>
+          <p class="feat-desc">With permission, Gini can access phone functions — calls, messages, and device controls — on supported platforms.</p>
+        </article>
+
+        <article class="feat-card" role="listitem">
+          <div class="feat-icon" aria-hidden="true">🔐</div>
+          <h3 class="feat-title">Full Privacy</h3>
+          <p class="feat-desc">Zero data transmission. Every computation stays on your hardware. No telemetry, no tracking, no compromise.</p>
+        </article>
+
+        <article class="feat-card" role="listitem">
+          <div class="feat-icon" aria-hidden="true">🔄</div>
+          <h3 class="feat-title">Self-Updating</h3>
+          <p class="feat-desc">Gini can update its own modules and knowledge base when instructed — staying current without manual intervention.</p>
+        </article>
+
+        <article class="feat-card" role="listitem">
+          <div class="feat-icon" aria-hidden="true">🎨</div>
+          <h3 class="feat-title">Desktop GUI</h3>
+          <p class="feat-desc">A full animated desktop interface with the Gini character model, settings dashboard, and visual status — coming in Phase 3.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       TECH STACK
+  ════════════════════════════════════ -->
+  <section id="tech-stack" aria-label="Technology stack">
+    <div class="tech-inner">
+      <div style="text-align:center;margin-bottom:clamp(32px,5vw,52px)">
+        <div class="section-eyebrow">TECHNOLOGY</div>
+        <h2 class="section-h">Built With</h2>
+        <p class="section-p">Open source only. No paid APIs. Complete independence.</p>
+      </div>
+      <div class="tech-grid" role="list">
+
+        <div class="tech-card" style="transition-delay:.00s" role="listitem">
+          <div class="tech-icon" aria-hidden="true">🐍</div>
+          <div>
+            <div class="tech-name">Python</div>
+            <div class="tech-role">Core runtime &amp; logic</div>
+          </div>
+        </div>
+
+        <div class="tech-card" style="transition-delay:.05s" role="listitem">
+          <div class="tech-icon" aria-hidden="true">🎤</div>
+          <div>
+            <div class="tech-name">Vosk</div>
+            <div class="tech-role">Offline speech recognition</div>
+          </div>
+        </div>
+
+        <div class="tech-card" style="transition-delay:.10s" role="listitem">
+          <div class="tech-icon" aria-hidden="true">🔊</div>
+          <div>
+            <div class="tech-name">pyttsx3</div>
+            <div class="tech-role">Text-to-speech engine</div>
+          </div>
+        </div>
+
+        <div class="tech-card" style="transition-delay:.15s" role="listitem">
+          <div class="tech-icon" aria-hidden="true">🤗</div>
+          <div>
+            <div class="tech-name">Transformers</div>
+            <div class="tech-role">NLU &amp; language models</div>
+          </div>
+        </div>
+
+        <div class="tech-card" style="transition-delay:.20s" role="listitem">
+          <div class="tech-icon" aria-hidden="true">👁️</div>
+          <div>
+            <div class="tech-name">OpenCV</div>
+            <div class="tech-role">Computer vision</div>
+          </div>
+        </div>
+
+        <div class="tech-card" style="transition-delay:.25s" role="listitem">
+          <div class="tech-icon" aria-hidden="true">🧬</div>
+          <div>
+            <div class="tech-name">TensorFlow</div>
+            <div class="tech-role">Deep learning inference</div>
+          </div>
+        </div>
+
+        <div class="tech-card" style="transition-delay:.30s" role="listitem">
+          <div class="tech-icon" aria-hidden="true">🌐</div>
+          <div>
+            <div class="tech-name">Selenium</div>
+            <div class="tech-role">Web automation</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       VISION / ROADMAP
+  ════════════════════════════════════ -->
+  <section id="vision" aria-label="Vision and roadmap">
+    <div class="vision-inner">
+      <div class="vision-top">
+        <div class="section-eyebrow">ROADMAP</div>
+        <h2 class="section-h">The Future of Gini AI</h2>
+        <p class="section-p">Every phase brings Gini closer to a truly capable, human-level offline AI.</p>
+      </div>
+
+      <div class="vision-grid">
+        <div>
+          <p class="vision-body">
+            Gini is being built to become the most capable offline personal AI created by an independent developer —
+            a true ANMOL Intelligence for everyone. Every iteration gets smarter, more natural, and more seamlessly
+            integrated into daily life.
+          </p>
+          <div class="future-tags" role="list" aria-label="Planned features">
+            <span class="f-tag" role="listitem">Emotional Intelligence</span>
+            <span class="f-tag" role="listitem">IoT Control</span>
+            <span class="f-tag" role="listitem">Multi-device</span>
+            <span class="f-tag" role="listitem">AR Interface</span>
+            <span class="f-tag" role="listitem">Wake Word</span>
+            <span class="f-tag" role="listitem">3D Visualization</span>
+            <span class="f-tag" role="listitem">Self-updating</span>
+            <span class="f-tag" role="listitem">Hindi NLU</span>
+            <span class="f-tag" role="listitem">Phone Integration</span>
+            <span class="f-tag" role="listitem">Local LLM</span>
+            <span class="f-tag" role="listitem">Contextual Memory</span>
+          </div>
+        </div>
+
+        <div class="roadmap" role="list" aria-label="Development roadmap">
+          <div class="rm-item" style="transition-delay:.00s" role="listitem">
+            <div class="rm-dot" aria-hidden="true">✅</div>
+            <div class="rm-content">
+              <h4>Phase 1 — Core Engine</h4>
+              <p>Voice I/O, basic Q&amp;A, task execution, web automation foundation</p>
+              <span class="rm-status">COMPLETE</span>
+            </div>
+          </div>
+
+          <div class="rm-item" style="transition-delay:.1s" role="listitem">
+            <div class="rm-dot" aria-hidden="true">🔧</div>
+            <div class="rm-content">
+              <h4>Phase 2 — NLU Expansion</h4>
+              <p>Improved intent recognition, memory system, context awareness, voice command interaction</p>
+              <span class="rm-status">IN PROGRESS</span>
+            </div>
+          </div>
+
+          <div class="rm-item" style="transition-delay:.2s" role="listitem">
+            <div class="rm-dot" aria-hidden="true">🎨</div>
+            <div class="rm-content">
+              <h4>Phase 3 — GUI &amp; Design</h4>
+              <p>Full desktop interface, animated Gini model, settings dashboard, visual status</p>
+              <span class="rm-status">PLANNED</span>
+            </div>
+          </div>
+
+          <div class="rm-item" style="transition-delay:.3s" role="listitem">
+            <div class="rm-dot" aria-hidden="true">🚀</div>
+            <div class="rm-content">
+              <h4>Phase 4 — Advanced AI</h4>
+              <p>Local LLM reasoning, AR interaction, IoT control, emotional intelligence, and beyond</p>
+              <span class="rm-status">FUTURE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       COPYRIGHT BLOCK
+  ════════════════════════════════════ -->
+  <div class="copyright-block" role="contentinfo" aria-label="Copyright notice">
+    <div class="copyright-inner">
+      <div class="copyright-text">
+        <strong>© 2026 Gini AI — All Feature Concepts Reserved.</strong><br>
+        The feature set, architecture, design, character identity, and system concepts are the intellectual property of
+        <strong>ANMOL</strong> (Creator &amp; Developer, Lucknow, India).
+        Unauthorized reproduction or commercial use without written permission is strictly prohibited.
+      </div>
+      <div class="copyright-badge" aria-label="IP Protected">🔒 PROTECTED</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       FOOTER
+  ════════════════════════════════════ -->
+  <footer role="contentinfo">
+    <div class="footer-logo" aria-label="Gini AI">GINI AI</div>
+    <div class="footer-line" aria-hidden="true"></div>
+    <p class="footer-sub">Designed &amp; Built by ANMOL · Lucknow, India</p>
+    <p class="footer-copy">© 2026 Gini AI. All rights reserved.</p>
+  </footer>
+
+  <!-- ═══════════════════════════════════
+       THEME SWITCHER
+  ════════════════════════════════════ -->
+  <div id="themeWrap" role="region" aria-label="Theme switcher">
+    <button id="themeBtn" aria-label="Switch theme" aria-expanded="false" aria-controls="themePanel">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="1" x2="12" y2="3"/>
+        <line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/>
+        <line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+    </button>
+    <div id="themePanel" aria-hidden="true" role="menu">
+      <p class="tp-title">CHOOSE THEME</p>
+      <div class="t-opts">
+        <button class="t-sw on" data-theme="dark" role="menuitem"><span style="background:#7c6aff"></span>Dark</button>
+        <button class="t-sw" data-theme="light" role="menuitem"><span style="background:#5b45e8"></span>Light</button>
+        <button class="t-sw" data-theme="midnight" role="menuitem"><span style="background:#38bdf8"></span>Midnight</button>
+        <button class="t-sw" data-theme="rose" role="menuitem"><span style="background:#e85888"></span>Rose</button>
+        <button class="t-sw" data-theme="forest" role="menuitem"><span style="background:#48a86a"></span>Forest</button>
+        <button class="t-sw" data-theme="amber" role="menuitem"><span style="background:#e89818"></span>Amber</button>
+        <button class="t-sw" data-theme="cyan" role="menuitem"><span style="background:#00d8c8"></span>Cyan</button>
+        <button class="t-sw" data-theme="lavender" role="menuitem"><span style="background:#a868f8"></span>Lavender</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       SCRIPTS — Features page subset
+       (No engine/API/chat needed here)
+  ════════════════════════════════════ -->
+  <script src="config/settings.js"></script>
+  <script src="scripts/memory.js"></script>
+  <script src="scripts/interface.js"></script>
+  <script src="scripts/boot_features.js"></script>
+
+</body>
+</html>
