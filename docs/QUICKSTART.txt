@@ -1,0 +1,97 @@
+╔══════════════════════════════════════════════════════════════╗
+║                  GINI AI - QUICK START                       ║
+║                  Security Update v2.0                        ║
+╚══════════════════════════════════════════════════════════════╝
+
+⚠️  IMPORTANT: The chatbot has been updated for security!
+    The old exposed API key has been removed.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 SETUP (3 STEPS)
+
+1. Install dependencies:
+   npm install
+
+2. Configure API key:
+   - Copy .env.example to .env
+   - Get API key: https://makersuite.google.com/app/apikey
+   - Add to .env: GEMINI_API_KEY=your_key_here
+
+3. Start server:
+   npm start
+
+4. Open browser:
+   http://localhost:3000
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ WHAT WAS FIXED
+
+✓ Removed exposed API key from HTML
+✓ Created secure backend server
+✓ Added rate limiting (20 req/min)
+✓ Implemented retry logic
+✓ Enhanced error handling
+✓ Added security documentation
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 NEW FILES
+
+server.js         - Backend API server
+package.json      - Node.js dependencies
+.env              - Your API key (DO NOT COMMIT!)
+.env.example      - Example configuration
+.gitignore        - Protects sensitive files
+README.md         - Full documentation
+SECURITY.md       - Security policies
+SETUP.md          - Detailed setup guide
+CHANGELOG.md      - Version history
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 COMMANDS
+
+npm install       - Install dependencies
+npm start         - Start production server
+npm run dev       - Start with auto-reload
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🆘 TROUBLESHOOTING
+
+Problem: "Cannot find module"
+Fix: npm install
+
+Problem: "Server configuration error"
+Fix: Check .env file has valid API key
+
+Problem: "Port already in use"
+Fix: Change PORT in .env to 3001
+
+Problem: Chatbot not responding
+Fix: Check server is running, verify API key
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 DOCUMENTATION
+
+Quick Start:  SETUP.md
+Full Guide:   README.md
+Security:     SECURITY.md
+Changes:      CHANGELOG.md
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 NEXT STEPS
+
+1. Get your API key from Google AI Studio
+2. Add it to .env file
+3. Run npm install && npm start
+4. Visit http://localhost:3000
+5. Click the chat bubble and start talking!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Made with ❤️ by ANMOL | Lucknow, India
