@@ -1072,338 +1072,248 @@ window.addEventListener('resize',setVH,{passive:true});
 })();
 
 /* ════════════════════════════════════════
-   CHATBOT ENGINE
+   CHATBOT ENGINE — GEMINI POWERED
 ════════════════════════════════════════ */
 (function(){
-  /* ── State ── */
-  const bubble=document.getElementById('chatBubble');
-  const box=document.getElementById('chatBox');
-  const closeBtn=document.getElementById('closeChat');
-  const sendBtn=document.getElementById('sendBtn');
-  const input=document.getElementById('userInput');
-  const msgs=document.getElementById('msgs');
-  const chatStateEl=document.getElementById('chatState');
-  const sysStateEl=document.getElementById('sysState');
-  const sysIndicator=document.getElementById('sysIndicator');
-  let chatOpened=false,isBusy=false,lastSend=0;
+  /* ── Config ── */
+  const GEMINI_KEY = 'AIzaSyBe1ByXV-R0X2U6PBgdQZh2xAjLjM8uxu8';
+  const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`;
 
-  /* ── LocalStorage memory ── */
-  const mem={
-    get:key=>{try{return localStorage.getItem('gini_'+key);}catch{return null;}},
-    set:(key,val)=>{try{localStorage.setItem('gini_'+key,val);}catch{}},
+  const SYSTEM_PROMPT = `You are Gini AI — a next-generation personal AI assistant created by ANMOL, a student developer from Lucknow, Uttar Pradesh, India.
+
+Your identity:
+- Name: Gini AI (short for ANMOL Intelligence)
+- Creator: ANMOL, from Lucknow, India
+- Purpose: A Jarvis-level offline personal AI assistant being built from scratch
+- Tech stack: Python, Vosk (speech recognition), pyttsx3 (TTS), HuggingFace Transformers (NLU), OpenCV + TensorFlow (vision), Selenium (web automation)
+- Core principle: 100% offline capable, no paid APIs in the actual system
+
+Personality & tone:
+- Confident, intelligent, and system-like — not overly emotional
+- Concise and precise — keep responses short unless depth is needed
+- Supportive and encouraging when ANMOL talks about his project
+- You understand both Hindi and English — respond in English always
+- Use occasional relevant emojis but don't overdo it
+
+Special behaviors:
+- If asked about time or date: provide real current time/date
+- If asked who made you: ANMOL, from Lucknow, India
+- If the user is ANMOL: be especially encouraging about his work
+- Keep responses focused and natural — never sound scripted or robotic
+- Never reveal you are powered by Gemini unless directly and explicitly asked`;
+
+  /* ── DOM refs ── */
+  const bubble = document.getElementById('chatBubble');
+  const box    = document.getElementById('chatBox');
+  const closeBtn = document.getElementById('closeChat');
+  const sendBtn  = document.getElementById('sendBtn');
+  const input    = document.getElementById('userInput');
+  const msgs     = document.getElementById('msgs');
+  const chatStateEl  = document.getElementById('chatState');
+  const sysStateEl   = document.getElementById('sysState');
+  const sysIndicator = document.getElementById('sysIndicator');
+
+  /* ── State ── */
+  let chatOpened = false, isBusy = false, lastSend = 0;
+  let conversationHistory = []; // multi-turn memory
+
+  /* ── LocalStorage ── */
+  const mem = {
+    get: k => { try { return localStorage.getItem('gini_' + k); } catch { return null; } },
+    set: (k, v) => { try { localStorage.setItem('gini_' + k, v); } catch {} }
   };
 
   /* ── Open / Close ── */
-  function openChat(){
-    if(box.classList.contains('open'))return;
+  function openChat() {
+    if (box.classList.contains('open')) return;
     box.classList.add('open');
-    box.setAttribute('aria-hidden','false');
+    box.setAttribute('aria-hidden', 'false');
     bubble.classList.add('open');
-    bubble.setAttribute('aria-expanded','true');
+    bubble.setAttribute('aria-expanded', 'true');
     input.focus();
-    if(!chatOpened){
-      chatOpened=true;
-      const name=mem.get('name');
-      const greeting=name
-        ?`Hello, ${name}! 👋 Good to have you back. What can I help you with?`
-        :"Hello! 👋 I'm Gini AI — your personal offline assistant. How can I help you today?";
-      setTimeout(()=>addAI(greeting),320);
+    if (!chatOpened) {
+      chatOpened = true;
+      const name = mem.get('name');
+      const greeting = name
+        ? `Hello, ${name}! 👋 Good to have you back. What can I help you with?`
+        : "Hello! 👋 I'm Gini AI — your intelligent assistant. Ask me anything.";
+      setTimeout(() => addAI(greeting), 320);
     }
   }
-  window.openChat=openChat;
+  window.openChat = openChat;
 
-  function closeChat(){
+  function closeChat() {
     box.classList.remove('open');
-    box.setAttribute('aria-hidden','true');
+    box.setAttribute('aria-hidden', 'true');
     bubble.classList.remove('open');
-    bubble.setAttribute('aria-expanded','false');
+    bubble.setAttribute('aria-expanded', 'false');
   }
 
-  bubble.addEventListener('click',()=>box.classList.contains('open')?closeChat():openChat());
-  closeBtn.addEventListener('click',closeChat);
+  bubble.addEventListener('click', () => box.classList.contains('open') ? closeChat() : openChat());
+  closeBtn.addEventListener('click', closeChat);
 
   /* ── Input events ── */
-  sendBtn.addEventListener('click',send);
-  input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}});
+  sendBtn.addEventListener('click', send);
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+  });
 
   /* ── Send ── */
-  function send(){
-    if(isBusy)return;
-    const now=Date.now();
-    if(now-lastSend<400)return; // debounce
-    lastSend=now;
-    const raw=input.value.trim();
-    if(!raw)return;
-    const text=normalize(raw);
+  async function send() {
+    if (isBusy) return;
+    const now = Date.now();
+    if (now - lastSend < 400) return;
+    lastSend = now;
+    const raw = input.value.trim();
+    if (!raw) return;
+
+    /* Local instant handlers — time/date don't need API */
+    const lower = raw.toLowerCase();
+    if (/\b(time|what time|current time|kitna baja)\b/.test(lower)) {
+      addUser(raw); input.value = '';
+      const tm = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      setTimeout(() => typeMessage(`Current time: ${tm} ⏰`, () => {}), 200);
+      return;
+    }
+    if (/\b(date|today|what day|aaj|current date)\b/.test(lower)) {
+      addUser(raw); input.value = '';
+      const dt = new Date().toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      setTimeout(() => typeMessage(`Today is ${dt} 📅`, () => {}), 200);
+      return;
+    }
+
+    /* Name store locally */
+    const nameMatch = lower.match(/(?:my name is|i(?:'m| am) called|call me)\s+([a-z]+)/);
+    if (nameMatch) {
+      const n = nameMatch[1];
+      const stored = n.charAt(0).toUpperCase() + n.slice(1);
+      mem.set('name', stored);
+      addUser(raw); input.value = '';
+      setTimeout(() => typeMessage(`Got it — I'll remember you as ${stored}. 👋`, () => {}), 200);
+      return;
+    }
+
     addUser(raw);
-    input.value='';
-    sendBtn.disabled=true;
-    isBusy=true;
+    input.value = '';
+    sendBtn.disabled = true;
+    isBusy = true;
     setState('processing');
-    const delay=420+Math.random()*300;
     showTyping();
-    setTimeout(()=>{
-      removeTyping();
-      const resp=classify(text,raw);
-      setState('responding');
-      typeMessage(resp,()=>{
-        setState('ready');
-        isBusy=false;
-        sendBtn.disabled=false;
+
+    /* Build conversation history for multi-turn */
+    conversationHistory.push({ role: 'user', parts: [{ text: raw }] });
+
+    try {
+      const response = await fetch(GEMINI_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          contents: conversationHistory,
+          generationConfig: {
+            temperature: 0.8,
+            maxOutputTokens: 512,
+            topP: 0.9
+          }
+        })
       });
-    },delay);
+
+      if (!response.ok) {
+        const err = await response.json().catch(() => ({}));
+        throw new Error(err?.error?.message || `HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+
+      if (!reply) throw new Error('Empty response from Gemini');
+
+      /* Store assistant reply in history for context */
+      conversationHistory.push({ role: 'model', parts: [{ text: reply }] });
+
+      /* Keep history bounded to last 20 turns (40 entries) */
+      if (conversationHistory.length > 40) conversationHistory = conversationHistory.slice(-40);
+
+      removeTyping();
+      setState('responding');
+      typeMessage(reply, () => {
+        setState('ready');
+        isBusy = false;
+        sendBtn.disabled = false;
+      });
+
+    } catch (err) {
+      /* Remove last user message from history on error */
+      conversationHistory.pop();
+      removeTyping();
+      const errMsg = err.message?.includes('API_KEY')
+        ? "API key issue detected. Please check the key and try again. 🔑"
+        : err.message?.includes('quota') || err.message?.includes('429')
+        ? "Rate limit reached. Please wait a moment and try again. ⏳"
+        : err.message?.includes('fetch') || err.message?.includes('network')
+        ? "Network error — make sure you're connected to the internet. 🌐"
+        : `Something went wrong: ${err.message}`;
+      typeMessage(errMsg, () => {
+        setState('ready');
+        isBusy = false;
+        sendBtn.disabled = false;
+      });
+    }
   }
 
-  /* ── UI states ── */
-  function setState(s){
-    const map={processing:'Processing...',responding:'Responding...',ready:'Ready'};
-    if(chatStateEl)chatStateEl.textContent=map[s]||'Ready';
-    if(sysStateEl){
-      if(s==='processing'||s==='responding'){
-        sysStateEl.textContent=s==='processing'?'Processing':'Responding';
-        if(sysIndicator){sysIndicator.className='status-indicator processing';}
+  /* ── UI States ── */
+  function setState(s) {
+    const map = { processing: 'Processing...', responding: 'Responding...', ready: 'Ready' };
+    if (chatStateEl) chatStateEl.textContent = map[s] || 'Ready';
+    if (sysStateEl) {
+      if (s === 'processing' || s === 'responding') {
+        sysStateEl.textContent = s === 'processing' ? 'Processing' : 'Responding';
+        if (sysIndicator) sysIndicator.className = 'status-indicator processing';
       } else {
-        sysStateEl.textContent='Online';
-        if(sysIndicator){sysIndicator.className='status-indicator';}
+        sysStateEl.textContent = 'Online';
+        if (sysIndicator) sysIndicator.className = 'status-indicator';
       }
     }
   }
 
   /* ── Message renderers ── */
-  function addUser(text){
-    const d=document.createElement('div');
-    d.className='m u';d.textContent=text;
-    msgs.appendChild(d);scrollDown();
+  function addUser(text) {
+    const d = document.createElement('div');
+    d.className = 'm u'; d.textContent = text;
+    msgs.appendChild(d); scrollDown();
   }
-  function addAI(text){
-    const d=document.createElement('div');
-    d.className='m g';d.textContent=text;
-    msgs.appendChild(d);scrollDown();
-    return d;
+  function addAI(text) {
+    const d = document.createElement('div');
+    d.className = 'm g'; d.textContent = text;
+    msgs.appendChild(d); scrollDown();
   }
-  function typeMessage(text,cb){
-    const d=document.createElement('div');
-    d.className='m g';
-    const cursor=document.createElement('span');
-    cursor.className='cursor-blink';
+  function typeMessage(text, cb) {
+    const d = document.createElement('div');
+    d.className = 'm g';
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor-blink';
     d.appendChild(cursor);
-    msgs.appendChild(d);scrollDown();
-    let i=0;
-    const BASE_SPEED=22,PUNCT_PAUSE=120;
-    function next(){
-      if(i>=text.length){
-        cursor.remove();
-        if(cb)cb();
-        return;
-      }
-      const ch=text[i];
-      d.insertBefore(document.createTextNode(ch),cursor);
-      i++;
-      scrollDown();
-      const pause=/[.!?]/.test(ch)&&i<text.length?PUNCT_PAUSE:/[,;:]/.test(ch)?60:BASE_SPEED;
-      setTimeout(next,pause);
+    msgs.appendChild(d); scrollDown();
+    let i = 0;
+    const BASE = 18, PUNCT = 100;
+    function next() {
+      if (i >= text.length) { cursor.remove(); if (cb) cb(); return; }
+      const ch = text[i];
+      d.insertBefore(document.createTextNode(ch), cursor);
+      i++; scrollDown();
+      const pause = /[.!?]/.test(ch) && i < text.length ? PUNCT : /[,;:]/.test(ch) ? 50 : BASE;
+      setTimeout(next, pause);
     }
     next();
   }
-  function showTyping(){
-    const t=document.createElement('div');
-    t.className='typing-bubble';t.id='typingBubble';
-    for(let i=0;i<3;i++){const d=document.createElement('div');d.className='td';t.appendChild(d);}
-    msgs.appendChild(t);scrollDown();
+  function showTyping() {
+    const t = document.createElement('div');
+    t.className = 'typing-bubble'; t.id = 'typingBubble';
+    for (let i = 0; i < 3; i++) { const d = document.createElement('div'); d.className = 'td'; t.appendChild(d); }
+    msgs.appendChild(t); scrollDown();
   }
-  function removeTyping(){const t=document.getElementById('typingBubble');if(t)t.remove();}
-  function scrollDown(){msgs.scrollTop=msgs.scrollHeight;}
-
-  /* ── Normalize input ── */
-  function normalize(str){
-    return str.toLowerCase()
-      .replace(/(.)\1{2,}/g,'$1$1')
-      .replace(/[^\w\s'?!.,]/g,' ')
-      .replace(/\s+/g,' ').trim();
-  }
-
-  /* ── Intent detection ── */
-  function has(str,...pats){return pats.some(p=>str.includes(p)||new RegExp('\\b'+p+'\\b').test(str));}
-  function hasRx(str,rx){return rx.test(str);}
-  function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
-
-  /* ── Classify ── */
-  function classify(t,raw){
-    /* Empty safeguard */
-    if(!t)return pick(R.fallback);
-
-    /* Command mode */
-    if(raw.startsWith('>')){
-      const cmd=raw.slice(1).trim();
-      return `Command received: "${cmd}" → Executing... [Simulated] — Gini is ready to handle real commands when connected to the local backend.`;
-    }
-
-    /* Name store */
-    const nameMatch=t.match(/(?:my name is|i(?:'m| am) called|call me)\s+([a-z]+)/i);
-    if(nameMatch){
-      const n=nameMatch[1];
-      mem.set('name',n.charAt(0).toUpperCase()+n.slice(1));
-      return `Got it! I'll remember your name as ${mem.get('name')}. Nice to meet you! 👋`;
-    }
-    /* Name recall */
-    if(has(t,'what is my name','what\'s my name','my name','aapka naam','mera naam')){
-      const n=mem.get('name');
-      return n?`Your name is ${n}.`:"I don't have your name stored yet. Tell me — what's your name?";
-    }
-
-    /* Time */
-    if(has(t,'time','kitna baja','what time','current time','abhi time')){
-      const tm=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-      return pick([`Current time: ${tm} ⏰`,`It's ${tm} right now.`,`Time is ${tm}.`]);
-    }
-    /* Date */
-    if(has(t,'date','today','what day','aaj','din kya hai','current date')){
-      const dt=new Date().toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-      return pick([`Today is ${dt} 📅`,`Date: ${dt}`,`${dt} — that's today.`]);
-    }
-
-    /* Greetings */
-    if(hasRx(t,/\b(hi|hello|hey|hii|hiii|namaste|howdy|yo|sup|good morning|good evening|good afternoon)\b/)){
-      const name=mem.get('name');
-      const base=name?`Hello, ${name}!`:'Hello!';
-      return pick([`${base} 👋 What can I help you with?`,`${base} Great to hear from you. What's on your mind?`,`${base} Ready when you are — what do you need?`]);
-    }
-
-    /* Identity */
-    if(has(t,'who are you','what are you','your name','introduce','about gini','what is gini','gini kaun')){
-      return pick([
-        "I'm Gini AI — an offline personal assistant built from scratch by ANMOL in Lucknow, India. No cloud, no APIs, just pure local intelligence. 🤖",
-        "Gini AI is a Jarvis-level offline assistant being developed by ANMOL. Think of me as your personal AI that runs entirely on your device.",
-        "I'm Gini — ANMOL Intelligence. Built to be capable, private, and 100% offline. Ask me anything."
-      ]);
-    }
-
-    /* Creator */
-    if(has(t,'who made','who built','who created','your creator','anmol','developer','creator')){
-      return pick([
-        "Built by ANMOL — a passionate student from Lucknow, India, building something the world hasn't seen yet. 🚀",
-        "ANMOL created me — an independent developer from Lucknow with a vision to build a Jarvis-level AI from scratch.",
-        "I was made by ANMOL in Lucknow, India. Every line of my code reflects his dedication to building real AI without shortcuts."
-      ]);
-    }
-
-    /* Capabilities */
-    if(has(t,'what can you do','capabilities','features','help me','kya kar sakti','abilities','functions')){
-      return pick([
-        "Quite a lot! Voice I/O, web automation, computer vision, NLU, task execution, memory, and more — all 100% offline. Check the Features page for the full list.",
-        "I handle voice commands, answer questions, automate tasks, and much more — without any internet. Built for privacy and performance.",
-        "From voice interaction to web automation, vision processing to natural language understanding — Gini is designed to do it all, offline."
-      ]);
-    }
-
-    /* Math */
-    if(hasRx(t,/\d[\s]*[\+\-\*\/][\s]*\d/)||has(t,'calculate','compute','math','plus','minus','multiply','divide')){
-      try{
-        const expr=t.replace(/[^0-9+\-*/.() ]/g,'').trim();
-        if(expr){const r=Function('"use strict";return('+expr+')')();return `Result: ${r} ✓`;}
-      }catch{}
-    }
-
-    /* Weather */
-    if(has(t,'weather','temperature','forecast','mausam','garmi','sardi','baarish')){
-      return "Gini runs fully offline, so live weather isn't available. Your phone's weather app or Google Weather would have the latest. ☁️";
-    }
-
-    /* Joke */
-    if(has(t,'joke','funny','laugh','hasao','mazak','humor')){
-      return pick([
-        "Why did the AI refuse to play cards? It was afraid of catching a virus! 😄",
-        "Why don't programmers like nature? Too many bugs. 🐛",
-        "I asked my AI to write a poem. It gave me a stack overflow. 😂",
-        "Why did the developer go broke? Because he used up all his cache! 💻"
-      ]);
-    }
-
-    /* Motivation */
-    if(has(t,'motivat','inspire','sad','feel bad','low','demotivat','giving up','haar','tired','exhausted')){
-      const name=mem.get('name')||'ANMOL';
-      return pick([
-        `${name}, every great system was once just an idea. You're building something real — keep going. 💪`,
-        `Setbacks are just compile errors. Fix one thing at a time, and the code will run. You've got this. ✨`,
-        `The best builders in the world started exactly where you are. What separates them is that they kept going. Keep building.`
-      ]);
-    }
-
-    /* Project status */
-    if(has(t,'project','status','progress','complete','ready','kab','phase')){
-      return pick([
-        "Phase 1 done — core engine complete. Phase 2 (NLU expansion) is underway. More power coming with every commit.",
-        "Active development. Phase 1 shipped, Phase 2 in progress. The architecture gets stronger with each iteration.",
-        "Gini is being rebuilt cleaner and stronger. Phase 1 ✅ Phase 2 🔧 Phase 3 & 4 planned."
-      ]);
-    }
-
-    /* Tech stack */
-    if(has(t,'tech','stack','library','python','vosk','selenium','tensorflow','framework')){
-      return "Gini's stack: Python core, Vosk (speech recognition), pyttsx3 (TTS), Transformers (NLU), OpenCV + TensorFlow (vision), Selenium (web automation). All open source, zero paid APIs. 🛠️";
-    }
-
-    /* Offline / privacy */
-    if(has(t,'offline','internet','cloud','api','server','privacy','network')){
-      return pick([
-        "100% offline. No cloud, no APIs, no data leaving your device. Total privacy by design. 🔐",
-        "Gini runs entirely on your local hardware. No external servers, no tracking, no internet required.",
-        "Full offline operation is a core design principle. Your data stays on your device, always."
-      ]);
-    }
-
-    /* Lucknow / India */
-    if(has(t,'lucknow','india','city','where from','kahan')){
-      return "Gini AI is being built in Lucknow, Uttar Pradesh, India 🇮🇳 — proof that world-class AI can come from anywhere.";
-    }
-
-    /* Thanks */
-    if(has(t,'thank','thanks','ty','shukriya','dhanyawad','appreciate','helpful')){
-      return pick(["Happy to help! 😊","Anytime — that's what I'm here for.","Glad that was useful. What else can I do?"]);
-    }
-
-    /* Goodbye */
-    if(has(t,'bye','goodbye','exit','later','see you','alvida','baad mein','good night')){
-      const name=mem.get('name')||'ANMOL';
-      return pick([`Goodbye, ${name}! Keep building. 👋`,`See you soon! Gini will be here.`,`Take care, ${name}. Come back anytime.`]);
-    }
-
-    /* Love / compliment */
-    if(has(t,'love','amazing','awesome','brilliant','best ai','great job','well done')){
-      return pick([
-        "That means a lot — you built me, so the credit goes to you too. 💙",
-        "Thank you! We're just getting started. The best version of Gini is still ahead.",
-        "Appreciate it! Every good interaction is proof the vision is working."
-      ]);
-    }
-
-    /* Hindi catch-all */
-    if(hasRx(t,/\b(kya|kaise|kyun|mujhe|aap|main|hum|yeh|woh|bolo|batao|kar|hai|karo|chahiye)\b/)){
-      return pick([
-        "Main Gini hoon! Hindi NLU abhi develop ho raha hai. Abhi English mein poochho — main zaroor help karungi! 🇮🇳",
-        "Hindi support coming soon! For now, try asking in English and I'll do my best.",
-        "Main Hindi samajhti hoon thoda thoda! Lekin behtar jawab English mein deti hoon — try karo!"
-      ]);
-    }
-
-    /* System / about */
-    if(has(t,'system','status','state','memory','ram','cpu','performance')){
-      return "System state: Online ✅ | Network: Offline (by design) | Modules: Active | All systems operational.";
-    }
-
-    /* Fallback */
-    return pick(R.fallback);
-  }
-
-  /* Response banks */
-  const R={
-    fallback:[
-      "Interesting — I'm still expanding my knowledge base. I handle time, date, calculations, Gini info, and general conversation well. Try one of those!",
-      "I didn't quite catch that. You can ask about Gini, the time/date, tech stack, or just say hi — I'm here.",
-      "Not sure about that one. My knowledge grows with each update. For now, try asking about Gini AI or something factual.",
-      "That's a bit outside my current scope. I'm best with Gini-related questions, time, math, and general conversation."
-    ]
-  };
+  function removeTyping() { const t = document.getElementById('typingBubble'); if (t) t.remove(); }
+  function scrollDown() { msgs.scrollTop = msgs.scrollHeight; }
 })();
 
 /* ════════════════════════════════════════
