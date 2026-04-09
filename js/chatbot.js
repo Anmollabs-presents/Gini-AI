@@ -38,7 +38,7 @@ class Chatbot {
 
     this.$input.addEventListener('input', () => this._growInput());
 
-    this._addMessage('ai', "Hi! I'm Gini — your AI assistant. Ask me anything.");
+    this._addMessage('ai', "Hi! I'm Gini By AnmolLabs— your AI assistant. Ask me anything.");
   }
 
   /* ── Public ──────────────────────────────────────── */
@@ -86,7 +86,7 @@ class Chatbot {
       const messages = [
         {
           role: 'system',
-          content: 'You are Gini, a sharp, helpful, and concise AI assistant. Give precise answers. Keep replies focused — no fluff.'
+          content: 'You are Gini Created by AnmolLabs, a sharp, helpful, and concise AI assistant. Give precise answers. Keep replies focused — no fluff.'
         },
         ...this.history
       ];
