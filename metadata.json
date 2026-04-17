@@ -1,8 +1,0 @@
-{
-  "name": "Remix: GINI AI Assistant",
-  "description": "Next-generation personal AI assistant with precise understanding, real-time responses, and a premium glassmorphism interface. Features Google Auth and persistent chat history.",
-  "requestFramePermissions": [
-    "microphone"
-  ],
-  "majorCapabilities": []
-}
