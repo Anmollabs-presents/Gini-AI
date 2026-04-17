@@ -1,0 +1,66 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: /users/{userId}/messages/{messageId}
+    // Fields:
+    //   - uid: string (required, immutable)
+    //   - role: string enum ['user', 'ai'] (required, immutable)
+    //   - content: string (required, max length 50000)
+    //   - timestamp: timestamp (required)
+    //
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function hasOnlyAllowedFields(fields) {
+      return request.resource.data.keys().hasOnly(fields);
+    }
+    
+    function uidMatchesUserLoggedIn() {
+      return request.resource.data.uid == request.auth.uid;
+    }
+
+    function areImmutableFieldsUnchanged(fields) {
+      return !request.resource.data.diff(resource.data).affectedKeys().hasAny(fields);
+    }
+    
+    // ===============================================================
+    // Domain Validators
+    // ===============================================================
+
+    function isValidMessage(data) {
+      return hasOnlyAllowedFields(['uid', 'role', 'content', 'timestamp']) &&
+             data.uid is string && data.uid.size() > 0 &&
+             data.role in ['user', 'ai'] &&
+             data.content is string && data.content.size() <= 50000 &&
+             data.timestamp is timestamp;
+    }
+    
+    // ===============================================================
+    // Routing Access Checks
+    // ===============================================================
+
+    match /users/{userId}/messages/{messageId} {
+      allow read: if isOwner(userId);
+      allow create: if isOwner(userId) && isValidMessage(request.resource.data) && uidMatchesUserLoggedIn();
+      // Immutable properties: uid, role
+      allow update: if isOwner(userId) && isValidMessage(request.resource.data) && uidMatchesUserLoggedIn() && areImmutableFieldsUnchanged(['uid', 'role']);
+      allow delete: if isOwner(userId);
+    }
+
+  }
+}
